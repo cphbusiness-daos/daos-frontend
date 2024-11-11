@@ -9,9 +9,19 @@ const config = {
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  ignorePatterns: [
+    "dist",
+    ".eslintrc.cjs",
+    "vite.config.ts",
+    "prettier.config.js",
+    "tailwind.config.js",
+    "postcss.config.js",
+  ],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "simple-import-sort"],
+  parserOptions: {
+    project: "./tsconfig.json",
+  },
   rules: {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",

@@ -1,4 +1,4 @@
-import Button from "./atoms/button";
+import Button from "./atoms/Button";
 
 function handlePostClick() {
     console.log("hello from post button");

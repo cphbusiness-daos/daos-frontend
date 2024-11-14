@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import Button from "../components/atoms/button";
-import IndexContact from "../components/indexContact";
-import IndexPosts from "../components/indexPosts";
-import Ratings from "../components/ratings";
+import Button from "../components/atoms/Button";
+import IndexContact from "../components/IndexContact";
+import IndexPosts from "../components/IndexPosts";
+import Ratings from "../components/Ratings";
 
 export const Route = createFileRoute("/")({
   component: Index,

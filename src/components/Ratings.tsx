@@ -1,4 +1,4 @@
-import RatingCard from "./atoms/ratingCard";
+import RatingCard from "./atoms/RatingCard";
 
 export default function Ratings() {
   return (

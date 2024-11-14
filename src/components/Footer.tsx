@@ -1,4 +1,4 @@
-import Button from "./atoms/button";
+import Button from "./atoms/Button";
 
 export default function Footer() {
     function handleSeePostsClick() {

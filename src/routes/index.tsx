@@ -1,37 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import Button from "../components/atoms/Button";
-import IndexContact from "../components/IndexContact";
-import IndexPosts from "../components/IndexPosts";
-import Ratings from "../components/Ratings";
+import { IndexContact } from "../components/pages/_components/ContactSection";
+import { DesktopSection } from "../components/pages/_components/DesktopLandingSection";
+import { MobileSection } from "../components/pages/_components/MobileLandingSection";
+import { Ratings } from "../components/pages/_components/Ratings/Ratings";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-
-  function handleSeePostsClick() {
-    console.log("Hello from see posts button");
-
-  }
-
   return (
-    <div className="flex bg-white flex-col">
-      <main className="flex bg-white w-full items-center justify-center gap-24 h-96 my-40">
-        <div className="flex flex-col w-3/6 gap-10">
-          <p className="text-5xl text-red font-bold">Stedet hvor amatørmusikere finder hinanden og spiller musik sammen</p>
-          <div className="flex gap-16">
-            <Button buttonText="Se Opslag" onClick={handleSeePostsClick} variant="blueBG"></Button>
-            <Button buttonText="Se Opslag" onClick={handleSeePostsClick} variant="blueBG"></Button>
-          </div>
-        </div>
+    <main className="flex flex-col">
+      <DesktopSection />
+      <MobileSection />
 
-        <img src="../../public/img/index_figure1.png" alt="" />
-      </main>
-      <Ratings></Ratings>
-      <IndexPosts></IndexPosts>
-      <IndexContact></IndexContact>
-    </div>
+      <Ratings />
+      <IndexContact />
+    </main>
   );
 }

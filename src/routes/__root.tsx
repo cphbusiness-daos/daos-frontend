@@ -8,7 +8,9 @@ export const Route = createRootRoute({
   component: () => (
     <Fragment>
       <Header />
-      <Outlet />
+      <main className="min-h-[calc(100vh-45vh-10vh)] lg:min-h-[calc(100vh-30vh-10vh)]">
+        <Outlet />
+      </main>
       <Footer />
     </Fragment>
   ),

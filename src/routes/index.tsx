@@ -11,12 +11,12 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       <DesktopSection />
       <MobileSection />
 
       <Ratings />
       <IndexContact />
-    </main>
+    </div>
   );
 }

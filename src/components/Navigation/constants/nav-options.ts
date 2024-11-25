@@ -12,7 +12,7 @@ export const mobileNavOptions = [
     label: "Find ensemble",
   },
   {
-    href: "/",
+    href: "/profile",
     label: "Profil",
   },
 ] as const;
@@ -23,7 +23,7 @@ export const desktopNavOptions = [
     label: "Opslag",
   },
   {
-    href: "/",
+    href: "/profile",
     label: "Profil",
   },
 ] as const;

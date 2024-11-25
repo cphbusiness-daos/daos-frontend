@@ -8,7 +8,7 @@ export function MobileFooter() {
         <Link to="/">Hjem</Link>
         <Link to="/">Find musiker</Link>
         <Link to="/">Find ensemble</Link>
-        <Link to="/">Profil</Link>
+        <Link to="/profile">Profil</Link>
       </div>
       <div className="flex flex-row gap-4">
         <Link href="https://facebook.com/" target="_blank">

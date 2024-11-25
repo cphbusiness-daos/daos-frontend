@@ -9,7 +9,7 @@ export function DesktopFooter() {
           <p className="text-2xl font-bold uppercase">Musik samspil</p>
           <div className="flex gap-4 font-semibold">
             <Link to="/">Se opslag</Link>
-            <Link to="/">Profil</Link>
+            <Link to="/profile">Profil</Link>
           </div>
           <div className="flex flex-row gap-4">
             <Link href="https://facebook.com/" target="_blank">

@@ -20,7 +20,7 @@ export function DesktopNavigation() {
       {!session ? (
         <>
           <Link to="/auth/sign-up">
-            <Button variant="primary" size="md">
+            <Button variant="primary" size="md" className="">
               Opret bruger
             </Button>
           </Link>

@@ -7,7 +7,9 @@ export function MobileFooter() {
       <div className="flex flex-col font-semibold">
         <Link to="/">Hjem</Link>
         <Link to="/">Find musiker</Link>
-        <Link to="/ensembles">Find ensemble</Link>
+        <Link to="/ensembles" search={{ page: 1 }}>
+          Find ensemble
+        </Link>
         <Link to="/profile">Profil</Link>
       </div>
       <div className="flex flex-row gap-4">

@@ -3,12 +3,13 @@ import axios from "axios";
 import type { Ensemble } from "./types";
 
 export const EnsembleService = {
-  async getEnsembles() {
+  async getEnsembles({ page = 1 }: { page: number }) {
     try {
       const { data } = await axios.get<{
         data: Ensemble[];
         length: number;
       }>("/api/v1/ensembles", {
+        params: { page },
         headers: {},
       });
       return data;

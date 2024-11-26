@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { getSession } from "~/common/get-session";
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
-import { Input } from "~/components/InputField";
 
 export const Route = createFileRoute("/auth/login")({
   component: LoginPage,
@@ -16,8 +15,13 @@ export const Route = createFileRoute("/auth/login")({
   },
 });
 
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
 function LoginPage() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<LoginFormValues>();
 
   return (
     <div className="flex h-[calc(100vh-20rem)] items-center justify-center">
@@ -30,8 +34,16 @@ function LoginPage() {
           })}
           className="flex flex-col gap-4"
         >
-          <Input name="email" placeholder="E-mail" register={register} type="email"></Input>
-          <Input name="password" placeholder="Adgangskode" register={register} type="password"></Input>
+          <input
+            type="email"
+            placeholder="E-mail"
+            {...register("email", { required: true })}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            {...register("password", { required: true })}
+          />
           <Button variant="primary" size="md" type="submit">
             Log ind
           </Button>

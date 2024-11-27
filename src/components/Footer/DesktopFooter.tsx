@@ -12,30 +12,42 @@ export function DesktopFooter() {
             <Link to="/profile">Profil</Link>
           </div>
           <div className="flex flex-row gap-4">
-            <Link href="https://facebook.com/" target="_blank">
+            <a
+              href="https://facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 src="/img/footer-facebook.svg"
                 width={20}
                 height="auto"
                 alt="Facebook icon"
               />
-            </Link>
-            <Link href="https://instagram.com/" target="_blank">
+            </a>
+            <a
+              href="https://instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 src="/img/footer-instagram.svg"
                 width={20}
                 height="auto"
                 alt="Instagram icon"
               />
-            </Link>
-            <Link href="https://linkedin.com/" target="_blank">
+            </a>
+            <a
+              href="https://linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 src="/img/footer-linkedin.svg"
                 width={20}
                 height="auto"
                 alt="Linkedin icon"
               />
-            </Link>
+            </a>
           </div>
         </div>
 

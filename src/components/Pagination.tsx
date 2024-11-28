@@ -1,30 +1,46 @@
-import { type FileRoutesByPath, Link } from "@tanstack/react-router";
+import { type FileRoutesByPath, Link } from "@tanstack/react-router"
+import { useMemo } from "react"
 
-import { Button } from "./Button";
+import { Button } from "./Button"
 
-export function Pagination<T extends Array<unknown>>({
+interface PaginationProps<T> {
+  route: keyof FileRoutesByPath
+  limit: number
+  data: T[]
+  page: number
+  total: number
+}
+
+export function Pagination<T>({
   route,
   limit,
   data,
   page,
-}: {
-  route: keyof FileRoutesByPath;
-  limit: number;
-  data: T;
-  page: number;
-}) {
+  total,
+}: PaginationProps<T>) {
+  const { disabledPrev, disabledNext } = useMemo(() => {
+    const isFirstPage = page === 1
+    const isLastPage =
+      data.length < limit || total / limit <= page || data.length === 0
+
+    return {
+      disabledPrev: isFirstPage,
+      disabledNext: isLastPage,
+    }
+  }, [page, limit, data.length, total])
+
   return (
-    <div className="mt-4 flex justify-center">
-      <Link to={route} search={{ page: page - 1 }}>
-        <Button variant="secondary" disabled={page === 1}>
+    <div className="mt-4 flex justify-center gap-2">
+      <Link to={route} search={{ page: page - 1 }} disabled={disabledPrev}>
+        <Button variant="secondary" disabled={disabledPrev}>
           Previous
         </Button>
       </Link>
-      <Link to={route} search={{ page: page + 1 }}>
-        <Button variant="secondary" disabled={data.length < limit}>
+      <Link to={route} search={{ page: page + 1 }} disabled={disabledNext}>
+        <Button variant="secondary" disabled={disabledNext}>
           Next
         </Button>
       </Link>
     </div>
-  );
+  )
 }

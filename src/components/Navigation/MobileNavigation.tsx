@@ -1,40 +1,40 @@
-import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Link } from "@tanstack/react-router"
+import { Menu, X } from "lucide-react"
+import { useState } from "react"
 
-import { Button } from "~/components/Button";
+import { Button } from "~/components/Button"
 
-import { mobileNavOptions } from "./constants/nav-options";
-import { useMobileNavigation } from "./hooks/use-mobile-navigation";
-import { NavItem } from "./NavItem";
+import { navOptions } from "./constants/nav-options"
+import { useMobileNavigation } from "./hooks/use-mobile-navigation"
+import { NavItem } from "./NavItem"
 
 export function MobileNavigation() {
   /* Hooks */
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   useMobileNavigation({
     isOpen,
     onClose: () => setIsOpen(false),
-  });
+  })
 
   /* Handlers */
-  const toggleMenu = () => setIsOpen((prev) => !prev);
-  const closeMenu = () => setIsOpen(false);
+  const toggleMenu = () => setIsOpen((prev) => !prev)
+  const closeMenu = () => setIsOpen(false)
 
   return (
     <>
       <NavigationIcon isOpen={isOpen} toggleMenu={toggleMenu} />
       {isOpen && <DropDownNavigation closeMenu={closeMenu} />}
     </>
-  );
+  )
 }
 
 function NavigationIcon({
   isOpen,
   toggleMenu,
 }: {
-  isOpen: boolean;
-  toggleMenu: () => void;
+  isOpen: boolean
+  toggleMenu: () => void
 }) {
   return (
     <a
@@ -47,7 +47,7 @@ function NavigationIcon({
         <Menu size="24" className="cursor-pointer text-primary-blue" />
       )}
     </a>
-  );
+  )
 }
 
 function DropDownNavigation({ closeMenu }: { closeMenu: () => void }) {
@@ -57,7 +57,7 @@ function DropDownNavigation({ closeMenu }: { closeMenu: () => void }) {
 
       <div className="absolute left-0 top-full z-50 flex w-full flex-col gap-4 bg-white p-6 shadow-md">
         <div className="flex flex-col items-center justify-center gap-y-2">
-          {mobileNavOptions.map((option, index) => (
+          {navOptions.map((option, index) => (
             <NavItem href={option.href} key={index}>
               {option.label}
             </NavItem>
@@ -67,7 +67,7 @@ function DropDownNavigation({ closeMenu }: { closeMenu: () => void }) {
         <MobileNavigationButtons />
       </div>
     </>
-  );
+  )
 }
 
 function Overlay({ closeMenu }: { closeMenu: () => void }) {
@@ -76,7 +76,7 @@ function Overlay({ closeMenu }: { closeMenu: () => void }) {
       className="fixed bottom-0 left-0 right-0 top-[5rem] z-40 bg-gray-800 bg-opacity-50"
       onClick={closeMenu}
     ></div>
-  );
+  )
 }
 
 function MobileNavigationButtons() {
@@ -93,5 +93,5 @@ function MobileNavigationButtons() {
         </Button>
       </Link>
     </div>
-  );
+  )
 }

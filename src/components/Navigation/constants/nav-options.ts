@@ -1,6 +1,6 @@
-import { type FileRoutesByPath } from "@tanstack/react-router";
+import { type FileRoutesByPath } from "@tanstack/react-router"
 
-export const mobileNavOptions = [
+export const navOptions = [
   {
     href: "/",
     label: "Hjem",
@@ -18,20 +18,6 @@ export const mobileNavOptions = [
     label: "Profil",
   },
 ] as const satisfies ReadonlyArray<{
-  href: keyof FileRoutesByPath;
-  label: string;
-}>;
-
-export const desktopNavOptions = [
-  {
-    href: "/",
-    label: "Opslag",
-  },
-  {
-    href: "/profile/",
-    label: "Profil",
-  },
-] as const satisfies ReadonlyArray<{
-  href: keyof FileRoutesByPath;
-  label: string;
-}>;
+  href: keyof FileRoutesByPath
+  label: string
+}>

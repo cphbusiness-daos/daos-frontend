@@ -1,17 +1,17 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router"
 
-import { Button } from "~/components/Button";
-import { useSession } from "~/hooks/use-session";
+import { Button } from "~/components/Button"
+import { useSession } from "~/hooks/use-session"
 
-import { desktopNavOptions } from "./constants/nav-options";
-import { NavItem } from "./NavItem";
+import { navOptions } from "./constants/nav-options"
+import { NavItem } from "./NavItem"
 
 export function DesktopNavigation() {
-  const session = useSession();
+  const session = useSession()
 
   return (
     <nav className="hidden items-center gap-x-5 md:flex">
-      {desktopNavOptions.map((option, index) => (
+      {navOptions.map((option, index) => (
         <NavItem key={index} href={option.href}>
           {option.label}
         </NavItem>
@@ -45,5 +45,5 @@ export function DesktopNavigation() {
         </>
       )}
     </nav>
-  );
+  )
 }

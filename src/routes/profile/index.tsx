@@ -18,7 +18,7 @@ export const Route = createFileRoute("/profile/")({
 
 function ProfilePage() {
   return (
-    <div className="flex max-h-max min-h-[calc(100vh-45vh-10vh)] flex-col gap-5 bg-[#F9F9F9] lg:min-h-[calc(100vh-30vh-8.65vh)]">
+    <div className="flex max-h-max flex-col gap-5 bg-[#F9F9F9]">
       <ProfileHeader />
       <UserEnsembles />
     </div>

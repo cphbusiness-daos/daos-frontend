@@ -1,3 +1,5 @@
+import { type UserBase } from "../auth/types";
+
 export type Ensemble = {
   _id: string;
   __v: number;
@@ -24,8 +26,13 @@ export type Ensemble = {
     | "late-romantic"
     | "symphonic"
   >;
-  admin_user_id: string;
   created_at: string;
   updated_at?: string;
   deactivated_at?: string;
+  admin?: EnsembleContactPerson;
 };
+
+export type EnsembleContactPerson = Omit<
+  UserBase,
+  "created_at" | "acceptedTocAt"
+>;

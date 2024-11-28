@@ -48,30 +48,26 @@ function parseToken(token: string): User {
     id: sub,
     email,
   };
-  return {
-    id: "1",
-    email: "",
-  };
 }
 
-const useProdSession = create<AuthStore>()(() => ({
-  token:
-    document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("auth"))
-      ?.split("=")[1] ?? "",
-  session: {
-    user: parseToken(
-      document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("auth"))
-        ?.split("=")[1] ?? "",
-    ),
-  },
-  setSession: () => void 0,
-  clearSession: () =>
-    (document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"),
-}));
+// const useProdSession = create<AuthStore>()(() => ({
+//   token:
+//     document.cookie
+//       .split("; ")
+//       .find((row) => row.startsWith("auth"))
+//       ?.split("=")[1] ?? "",
+//   session: {
+//     user: parseToken(
+//       document.cookie
+//         .split("; ")
+//         .find((row) => row.startsWith("auth"))
+//         ?.split("=")[1] ?? "",
+//     ),
+//   },
+//   setSession: () => void 0,
+//   clearSession: () =>
+//     (document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"),
+// }));
 
 export const useSession =
-  import.meta.env.MODE === "production" ? useProdSession : useDevSession;
+  import.meta.env.MODE === "production" ? useDevSession : useDevSession;

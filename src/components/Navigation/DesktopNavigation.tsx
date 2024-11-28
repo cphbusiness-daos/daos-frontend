@@ -1,13 +1,15 @@
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
+import { toast } from "sonner"
 
 import { Button } from "~/components/Button"
-import { useSession } from "~/hooks/use-session"
+import { useSession } from "~/stores/AuthStore"
 
 import { navOptions } from "./constants/nav-options"
 import { NavItem } from "./NavItem"
 
 export function DesktopNavigation() {
-  const session = useSession()
+  const { token, clearToken } = useSession()
+  const navigate = useNavigate()
 
   return (
     <nav className="hidden items-center gap-x-5 md:flex">
@@ -17,7 +19,7 @@ export function DesktopNavigation() {
         </NavItem>
       ))}
 
-      {!session ? (
+      {!token ? (
         <>
           <Link to="/auth/sign-up">
             <Button variant="primary" size="md" className="">
@@ -32,16 +34,22 @@ export function DesktopNavigation() {
         </>
       ) : (
         <>
-          <Link to="/">
+          <Link to="/profile">
             <Button variant="primary" size="md">
               Profil
             </Button>
           </Link>
-          <Link to="/">
-            <Button variant="secondary" size="md">
-              Log ud
-            </Button>
-          </Link>
+          <Button
+            variant="secondary"
+            size="md"
+            onClick={async () => {
+              clearToken()
+              await navigate({ to: "/" })
+              toast.success("Du er nu logget ud")
+            }}
+          >
+            Log ud
+          </Button>
         </>
       )}
     </nav>

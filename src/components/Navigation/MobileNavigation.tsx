@@ -1,8 +1,10 @@
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import { toast } from "sonner"
 
 import { Button } from "~/components/Button"
+import { useSession } from "~/stores/AuthStore"
 
 import { navOptions } from "./constants/nav-options"
 import { useMobileNavigation } from "./hooks/use-mobile-navigation"
@@ -80,18 +82,40 @@ function Overlay({ closeMenu }: { closeMenu: () => void }) {
 }
 
 function MobileNavigationButtons() {
+  const { token, clearToken } = useSession()
+  const navigate = useNavigate()
+
   return (
     <div className="flex flex-col gap-2">
-      <Link to="/auth/sign-up" className="w-full">
-        <Button variant="primary" size="md" className="w-full">
-          Opret bruger
-        </Button>
-      </Link>
-      <Link to="/auth/login" className="w-full">
-        <Button variant="secondary" size="md" className="w-full">
-          Log ind
-        </Button>
-      </Link>
+      {!token ? (
+        <>
+          <Link to="/auth/sign-up" className="w-full">
+            <Button variant="primary" size="md" className="w-full">
+              Opret bruger
+            </Button>
+          </Link>
+          <Link to="/auth/login" className="w-full">
+            <Button variant="secondary" size="md" className="w-full">
+              Log ind
+            </Button>
+          </Link>
+        </>
+      ) : (
+        <>
+          <Button
+            variant="secondary"
+            size="md"
+            className="w-full"
+            onClick={async () => {
+              clearToken()
+              await navigate({ to: "/" })
+              toast.success("Du er nu logget ud")
+            }}
+          >
+            Log ud
+          </Button>
+        </>
+      )}
     </div>
   )
 }

@@ -1,5 +1,8 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
@@ -9,7 +12,7 @@ import { Select } from "~/components/Select";
 import { Textarea } from "~/components/TextArea";
 
 export const Route = createFileRoute("/ensembles/create")({
-  component: RouteComponent,
+  component: CreateEnsemblePage,
 });
 
 const activeMusicians = ["1-4", "5-9", "10-24", "25-49", "50+"] as const;
@@ -31,16 +34,43 @@ const genres = [
 ] as const;
 const ensembleTypes = ["continuous", "project_based"] as const;
 
-function RouteComponent() {
-  const onSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
-  }, []);
+const CreateEnsembleScheme = z.object({
+  name: z.string().min(1, "Name is required"),
+  imageUrl: z.string().url("Invalid URL"),
+  description: z.string().min(1, "Description is required"),
+  homepage: z.string().url("Invalid URL"),
+  zip: z.string().length(4, "Zip must be 4 characters"),
+  city: z.string().min(1, "City is required"),
+  activeMusicians: z.enum(activeMusicians),
+  practiceFrequency: z.enum(practiceFrequency),
+  genres: z.enum(genres),
+});
+
+function CreateEnsemblePage() {
+  const form = useForm<z.infer<typeof CreateEnsembleScheme>>({
+    resolver: zodResolver(CreateEnsembleScheme),
+    defaultValues: {
+      name: "",
+      imageUrl: "",
+      description: "",
+      homepage: "",
+      zip: "",
+      city: "",
+      activeMusicians: activeMusicians[0],
+      practiceFrequency: practiceFrequency[0],
+      genres: genres[0],
+    },
+  });
+
+  const onSubmit = useCallback(() => {
+    console.log(form.getValues());
+  }, [form]);
 
   return (
-    <form className="flex flex-col gap-y-6 p-4 pb-16 pt-8" onSubmit={onSubmit}>
+    <form
+      className="flex flex-col gap-y-6 p-4 pb-16 pt-8"
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
       <Heading variant="h1">Create Ensemble</Heading>
 
       <div>

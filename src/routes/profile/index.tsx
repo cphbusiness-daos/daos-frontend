@@ -23,6 +23,7 @@ function ProfilePage() {
     <div className="flex max-h-max flex-col gap-5 bg-[#F9F9F9]">
       <ProfileHeader />
       <UserEnsembles />
+      <div className="h-10" />
     </div>
   );
 }

@@ -20,7 +20,7 @@ const useDevSession = create<AuthStore>()(
       session: null,
       setSession: (token: string) => {
         set({ token });
-        set({ session: { user: parseToken(token) } });
+        set({ session: parseToken(token) });
       },
       clearSession: () => {
         set({ token: "" });
@@ -34,19 +34,19 @@ const useDevSession = create<AuthStore>()(
   ),
 );
 
-function parseToken(token: string): User {
+function parseToken(token: string): { user: User } {
   if (!token) {
-    return {
-      id: "1",
-      email: "",
-    };
+    // @ts-expect-error this is a dev-only function
+    return null;
   }
   const [, payload] = token.split(".");
   const decoded = atob(payload);
   const { sub, email } = JSON.parse<{ sub: string; email: string }>(decoded);
   return {
-    id: sub,
-    email,
+    user: {
+      id: sub,
+      email,
+    },
   };
 }
 
@@ -56,14 +56,12 @@ function parseToken(token: string): User {
 //       .split("; ")
 //       .find((row) => row.startsWith("auth"))
 //       ?.split("=")[1] ?? "",
-//   session: {
-//     user: parseToken(
-//       document.cookie
-//         .split("; ")
-//         .find((row) => row.startsWith("auth"))
-//         ?.split("=")[1] ?? "",
-//     ),
-//   },
+//   session: parseToken(
+//     document.cookie
+//       .split("; ")
+//       .find((row) => row.startsWith("auth"))
+//       ?.split("=")[1] ?? "",
+//   ),
 //   setSession: () => void 0,
 //   clearSession: () =>
 //     (document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"),

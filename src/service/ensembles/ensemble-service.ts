@@ -2,6 +2,7 @@ import axios, { type AxiosRequestConfig } from "axios";
 
 import {
   type activeMusicians,
+  API_BASE_URL,
   type genres as genreTypes,
   type practiceFrequency as practiceFrequencies,
 } from "~/util/constants";
@@ -12,7 +13,7 @@ export const EnsembleService = {
   async getEnsemble({ ensembleId }: { ensembleId: string }) {
     try {
       const { data } = await axios.get<Ensemble>(
-        `/api/v1/ensembles/${ensembleId}`,
+        `/v1/ensembles/${ensembleId}`,
         createAxiosConfig(),
       );
       return data;
@@ -27,7 +28,7 @@ export const EnsembleService = {
         data: Ensemble[];
         length: number;
         total: number;
-      }>("/api/v1/ensembles", {
+      }>("/v1/ensembles", {
         params: { page },
         ...createAxiosConfig(),
       });
@@ -46,7 +47,7 @@ export const EnsembleService = {
       const { data } = await axios.get<{
         data: Ensemble[];
         length: number;
-      }>(`/api/v1/ensembles/users/${userId}`, createAxiosConfig());
+      }>(`/v1/ensembles/users/${userId}`, createAxiosConfig());
       return data;
     } catch (error) {
       return {
@@ -59,7 +60,7 @@ export const EnsembleService = {
   async addUserToEnsemble({ ensembleId }: { ensembleId: string }) {
     try {
       const { data } = await axios.post<{ message: "OK" }>(
-        `/api/v1/ensembles/${ensembleId}`,
+        `/v1/ensembles/${ensembleId}`,
         null,
         createAxiosConfig(),
       );
@@ -83,7 +84,7 @@ export const EnsembleService = {
   }) {
     try {
       const { data } = await axios.post<Ensemble>(
-        "/api/v1/ensembles",
+        "/v1/ensembles",
         {
           ...params,
           website: params.homepage,
@@ -102,15 +103,18 @@ export const EnsembleService = {
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {
-  const { token } = JSON.parse<AuthSessionStorage>(
+  const token = JSON.parse<AuthSessionStorage>(
     sessionStorage.getItem("auth-storage")!,
-  ).state;
+  )?.state?.token;
 
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      ...(token && {
+        Authorization: `Bearer ${token}`,
+      }),
     },
     withCredentials: true,
+    baseURL: API_BASE_URL,
   };
 }
 

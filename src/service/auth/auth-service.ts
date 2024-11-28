@@ -1,22 +1,25 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
+import { API_BASE_URL } from "~/util/constants";
+
 import type { AuthSessionStorage } from "../ensembles/ensemble-service";
 import type { User } from "./types";
 
 export const AuthService = {
   async getLoggedInUser() {
-    const { data } = await axios.get<User>(
-      "/api/v1/auth/me",
-      createAxiosConfig(),
-    );
+    const { data } = await axios.get<User>("/v1/auth/me", createAxiosConfig());
     return data;
   },
 
   async login({ email, password }: { email: string; password: string }) {
-    const { data } = await axios.post<{ token: string }>("/api/v1/auth/login", {
-      email,
-      password,
-    });
+    const { data } = await axios.post<{ token: string }>(
+      "/v1/auth/login",
+      {
+        email,
+        password,
+      },
+      createAxiosConfig(),
+    );
     return data;
   },
 
@@ -28,26 +31,30 @@ export const AuthService = {
     newsletterOptInAt?: boolean;
   }) {
     const { data } = await axios.post<{ token: string }>(
-      "/api/v1/auth/signup",
+      "/v1/auth/signup",
       reqBody,
+      createAxiosConfig(),
     );
     return data;
   },
 
   async signOut() {
-    await axios.post("/api/v1/auth/logout", null, createAxiosConfig());
+    await axios.post("/v1/auth/logout", null, createAxiosConfig());
   },
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {
-  const { token } = JSON.parse<AuthSessionStorage>(
+  const token = JSON.parse<AuthSessionStorage>(
     sessionStorage.getItem("auth-storage")!,
-  ).state;
+  )?.state?.token;
 
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      ...(token && {
+        Authorization: `Bearer ${token}`,
+      }),
     },
     withCredentials: true,
+    baseURL: API_BASE_URL,
   };
 }

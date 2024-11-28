@@ -19,3 +19,8 @@ export const genres = [
 ] as const;
 
 export const ensembleTypes = ["continuous", "project_based"] as const;
+
+export const API_BASE_URL =
+  import.meta.env.MODE === "production"
+    ? (import.meta.env.VITE_API_URL as string)
+    : "/api";

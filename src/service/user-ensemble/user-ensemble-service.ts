@@ -1,5 +1,7 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
+import { API_BASE_URL } from "~/util/constants";
+
 import { type AuthSessionStorage } from "../ensembles/ensemble-service";
 
 export const UserEnsembleService = {
@@ -11,7 +13,7 @@ export const UserEnsembleService = {
         ensemble_id: string;
         created_at: string;
         __v: string;
-      }>(`/api/v1/user-ensembles/ensembles/${ensembleId}`, createAxiosConfig());
+      }>(`/v1/user-ensembles/ensembles/${ensembleId}`, createAxiosConfig());
       return data;
     } catch (error) {
       return null;
@@ -20,14 +22,17 @@ export const UserEnsembleService = {
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {
-  const { token } = JSON.parse<AuthSessionStorage>(
+  const token = JSON.parse<AuthSessionStorage>(
     sessionStorage.getItem("auth-storage")!,
-  ).state;
+  )?.state?.token;
 
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      ...(token && {
+        Authorization: `Bearer ${token}`,
+      }),
     },
     withCredentials: true,
+    baseURL: API_BASE_URL,
   };
 }

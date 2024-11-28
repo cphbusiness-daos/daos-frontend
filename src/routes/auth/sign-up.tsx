@@ -6,7 +6,6 @@ import { z } from "zod";
 import { getSession } from "~/common/get-session";
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
-import { CheckBox } from "~/components/Input";
 import { Input } from "~/components/InputField";
 
 export const Route = createFileRoute("/auth/sign-up")({

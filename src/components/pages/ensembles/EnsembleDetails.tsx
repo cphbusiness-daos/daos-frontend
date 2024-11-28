@@ -1,17 +1,28 @@
-import { Link } from "@tanstack/react-router";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useRouter } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 import { Badge } from "~/components/Badge";
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
 import { Route } from "~/routes/ensembles/$ensembleId";
+import { EnsembleService } from "~/service/ensembles/ensemble-service";
 
 export function EnsembleDetails() {
-  const ensemble = Route.useLoaderData();
+  const { ensemble, userEnsemble } = Route.useLoaderData();
+  const router = useRouter();
 
-  let x: number | undefined;
-  x = 2;
-  x ||= 1;
-  x ??= 1;
+  const { mutateAsync: joinEnsemble } = useMutation({
+    mutationFn: async () =>
+      await EnsembleService.addUserToEnsemble({
+        ensembleId: ensemble!._id,
+      }),
+    onSuccess: async () => {
+      await router.invalidate();
+      toast.success("Du er nu medlem af ensemblet");
+    },
+    onError: (error) => toast.error(error.message),
+  });
 
   if (!ensemble) {
     return null;
@@ -30,7 +41,11 @@ export function EnsembleDetails() {
       />
       <EnsembleDetail
         title="Ensemblet spiller..."
-        children={ensemble.ensemble_type.join(", ")}
+        children={ensemble.ensemble_type
+          .map((type) =>
+            type.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+          )
+          .join(", ")}
       />
 
       <EnsembleDetail
@@ -52,7 +67,6 @@ export function EnsembleDetails() {
           children={
             <div className="flex items-center justify-between">
               <p>{ensemble.admin?.fullName}</p>
-              {/* TODO: add correct href */}
               <Link>
                 <Button variant="secondary" size="sm">
                   Vis profil
@@ -68,10 +82,16 @@ export function EnsembleDetails() {
           Vis hjemmeside
         </Button>
       </a>
-      {/* TODO: add join ensemble logic */}
-      <Button variant="primary" size="lg" className="w-full">
-        Bliv medlem
-      </Button>
+      {!userEnsemble && (
+        <Button
+          variant="primary"
+          size="lg"
+          className="w-full"
+          onClick={async () => await joinEnsemble()}
+        >
+          Bliv medlem
+        </Button>
+      )}
     </div>
   );
 }

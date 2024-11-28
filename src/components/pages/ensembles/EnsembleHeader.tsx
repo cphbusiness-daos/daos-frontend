@@ -2,7 +2,7 @@ import { Heading } from "~/components/Heading";
 import { Route } from "~/routes/ensembles/$ensembleId";
 
 export function EnsembleHeader() {
-  const ensemble = Route.useLoaderData();
+  const { ensemble } = Route.useLoaderData();
 
   if (!ensemble) {
     return <p>No ensemble found</p>;

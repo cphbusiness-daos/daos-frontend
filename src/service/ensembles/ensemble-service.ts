@@ -49,6 +49,19 @@ export const EnsembleService = {
       };
     }
   },
+
+  async addUserToEnsemble({ ensembleId }: { ensembleId: string }) {
+    try {
+      const { data } = await axios.post<{ message: "OK" }>(
+        `/api/v1/ensembles/${ensembleId}`,
+        null,
+        createAxiosConfig(),
+      );
+      return data;
+    } catch (error) {
+      return null;
+    }
+  },
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {

@@ -62,9 +62,11 @@ function SignUpPage() {
   const onSubmit = useCallback(async () => await signUp(), [signUp]);
 
   return (
-    <div className="flex min-w-96 items-center justify-center">
-      <div className="flex flex-col gap-2">
-        <Heading variant="h2">Opret Profil</Heading>
+    <div className="min-w-screen flex min-h-[calc(100vh-45vh-10vh)] items-center justify-center lg:min-h-[calc(100vh-30vh-8.65vh)]">
+      <div className="flex flex-col gap-6">
+        <Heading className="text-center" variant="h2">
+          Opret Profil
+        </Heading>
 
         <form
           onSubmit={form.handleSubmit(onSubmit)}

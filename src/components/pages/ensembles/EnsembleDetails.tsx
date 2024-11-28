@@ -1,20 +1,20 @@
-import { Link } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router";
 
-import { Badge } from "~/components/Badge"
-import { Button } from "~/components/Button"
-import { Heading } from "~/components/Heading"
-import { Route } from "~/routes/ensembles/$ensembleId"
+import { Badge } from "~/components/Badge";
+import { Button } from "~/components/Button";
+import { Heading } from "~/components/Heading";
+import { Route } from "~/routes/ensembles/$ensembleId";
 
 export function EnsembleDetails() {
-  const ensemble = Route.useLoaderData()
+  const ensemble = Route.useLoaderData();
 
-  let x: number | undefined
-  x = 2
-  x ||= 1
-  x ??= 1
+  let x: number | undefined;
+  x = 2;
+  x ||= 1;
+  x ??= 1;
 
   if (!ensemble) {
-    return null
+    return null;
   }
 
   return (
@@ -73,15 +73,15 @@ export function EnsembleDetails() {
         Bliv medlem
       </Button>
     </div>
-  )
+  );
 }
 
 function EnsembleDetail({
   title,
   children,
 }: {
-  title: string
-  children: React.ReactNode
+  title: string;
+  children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-y-2">
@@ -90,5 +90,5 @@ function EnsembleDetail({
       </Heading>
       <p className="text-gray-dark">{children}</p>
     </div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "~/util/utils"
+import { cn } from "~/util/utils";
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
@@ -15,10 +15,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         {...props}
       />
-    )
+    );
   },
-)
-Input.displayName = "Input"
+);
+Input.displayName = "Input";
 
 const CheckBox = React.forwardRef<HTMLInputElement, Omit<InputProps, "type">>(
   ({ className, ...props }, ref) => {
@@ -50,9 +50,9 @@ const CheckBox = React.forwardRef<HTMLInputElement, Omit<InputProps, "type">>(
           </svg>
         </span>
       </label>
-    )
+    );
   },
-)
-CheckBox.displayName = "CheckBox"
+);
+CheckBox.displayName = "CheckBox";
 
-export { CheckBox, Input }
+export { CheckBox, Input };

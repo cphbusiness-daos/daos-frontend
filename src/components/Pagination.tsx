@@ -1,14 +1,14 @@
-import { type FileRoutesByPath, Link } from "@tanstack/react-router"
-import { useMemo } from "react"
+import { type FileRoutesByPath, Link } from "@tanstack/react-router";
+import { useMemo } from "react";
 
-import { Button } from "./Button"
+import { Button } from "./Button";
 
 interface PaginationProps<T> {
-  route: keyof FileRoutesByPath
-  limit: number
-  data: T[]
-  page: number
-  total: number
+  route: keyof FileRoutesByPath;
+  limit: number;
+  data: T[];
+  page: number;
+  total: number;
 }
 
 export function Pagination<T>({
@@ -19,15 +19,15 @@ export function Pagination<T>({
   total,
 }: PaginationProps<T>) {
   const { disabledPrev, disabledNext } = useMemo(() => {
-    const isFirstPage = page === 1
+    const isFirstPage = page === 1;
     const isLastPage =
-      data.length < limit || total / limit <= page || data.length === 0
+      data.length < limit || total / limit <= page || data.length === 0;
 
     return {
       disabledPrev: isFirstPage,
       disabledNext: isLastPage,
-    }
-  }, [page, limit, data.length, total])
+    };
+  }, [page, limit, data.length, total]);
 
   return (
     <div className="mt-4 flex justify-center gap-2">
@@ -42,5 +42,5 @@ export function Pagination<T>({
         </Button>
       </Link>
     </div>
-  )
+  );
 }

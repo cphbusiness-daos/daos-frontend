@@ -1,4 +1,4 @@
-import { type FileRoutesByPath } from "@tanstack/react-router"
+import { type FileRoutesByPath } from "@tanstack/react-router";
 
 export const navOptions = [
   {
@@ -18,6 +18,6 @@ export const navOptions = [
     label: "Profil",
   },
 ] as const satisfies ReadonlyArray<{
-  href: keyof FileRoutesByPath
-  label: string
-}>
+  href: keyof FileRoutesByPath;
+  label: string;
+}>;

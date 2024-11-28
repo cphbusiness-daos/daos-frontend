@@ -1,4 +1,4 @@
-import { cn } from "~/util/utils"
+import { cn } from "~/util/utils";
 
 export function Label({
   className,
@@ -9,5 +9,5 @@ export function Label({
       className={cn("w-fit text-sm font-semibold text-primary-blue", className)}
       {...props}
     />
-  )
+  );
 }

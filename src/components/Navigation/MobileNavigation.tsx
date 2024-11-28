@@ -1,42 +1,42 @@
-import { Link, useNavigate } from "@tanstack/react-router"
-import { Menu, X } from "lucide-react"
-import { useState } from "react"
-import { toast } from "sonner"
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
-import { Button } from "~/components/Button"
-import { useSession } from "~/stores/AuthStore"
+import { Button } from "~/components/Button";
+import { useSession } from "~/stores/AuthStore";
 
-import { navOptions } from "./constants/nav-options"
-import { useMobileNavigation } from "./hooks/use-mobile-navigation"
-import { NavItem } from "./NavItem"
+import { navOptions } from "./constants/nav-options";
+import { useMobileNavigation } from "./hooks/use-mobile-navigation";
+import { NavItem } from "./NavItem";
 
 export function MobileNavigation() {
   /* Hooks */
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   useMobileNavigation({
     isOpen,
     onClose: () => setIsOpen(false),
-  })
+  });
 
   /* Handlers */
-  const toggleMenu = () => setIsOpen((prev) => !prev)
-  const closeMenu = () => setIsOpen(false)
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <>
       <NavigationIcon isOpen={isOpen} toggleMenu={toggleMenu} />
       {isOpen && <DropDownNavigation closeMenu={closeMenu} />}
     </>
-  )
+  );
 }
 
 function NavigationIcon({
   isOpen,
   toggleMenu,
 }: {
-  isOpen: boolean
-  toggleMenu: () => void
+  isOpen: boolean;
+  toggleMenu: () => void;
 }) {
   return (
     <a
@@ -49,7 +49,7 @@ function NavigationIcon({
         <Menu size="24" className="cursor-pointer text-primary-blue" />
       )}
     </a>
-  )
+  );
 }
 
 function DropDownNavigation({ closeMenu }: { closeMenu: () => void }) {
@@ -69,7 +69,7 @@ function DropDownNavigation({ closeMenu }: { closeMenu: () => void }) {
         <MobileNavigationButtons />
       </div>
     </>
-  )
+  );
 }
 
 function Overlay({ closeMenu }: { closeMenu: () => void }) {
@@ -78,12 +78,12 @@ function Overlay({ closeMenu }: { closeMenu: () => void }) {
       className="fixed bottom-0 left-0 right-0 top-[5rem] z-40 bg-gray-800 bg-opacity-50"
       onClick={closeMenu}
     ></div>
-  )
+  );
 }
 
 function MobileNavigationButtons() {
-  const { token, clearToken } = useSession()
-  const navigate = useNavigate()
+  const { token, clearToken } = useSession();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col gap-2">
@@ -107,9 +107,9 @@ function MobileNavigationButtons() {
             size="md"
             className="w-full"
             onClick={async () => {
-              clearToken()
-              await navigate({ to: "/" })
-              toast.success("Du er nu logget ud")
+              clearToken();
+              await navigate({ to: "/" });
+              toast.success("Du er nu logget ud");
             }}
           >
             Log ud
@@ -117,5 +117,5 @@ function MobileNavigationButtons() {
         </>
       )}
     </div>
-  )
+  );
 }

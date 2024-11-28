@@ -4,6 +4,6 @@ export declare global {
     parse<T = unknown>(
       text: string,
       reviver?: (this: any, key: string, value: any) => any,
-    ): T
+    ): T;
   }
 }

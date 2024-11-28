@@ -1,25 +1,25 @@
-import { createFileRoute } from "@tanstack/react-router"
-import { useCallback } from "react"
+import { createFileRoute } from "@tanstack/react-router";
+import { useCallback } from "react";
 
-import { Button } from "~/components/Button"
-import { Heading } from "~/components/Heading"
-import { CheckBox, Input } from "~/components/Input"
-import { Label } from "~/components/Label"
-import { Select } from "~/components/Select"
-import { Textarea } from "~/components/TextArea"
+import { Button } from "~/components/Button";
+import { Heading } from "~/components/Heading";
+import { CheckBox, Input } from "~/components/Input";
+import { Label } from "~/components/Label";
+import { Select } from "~/components/Select";
+import { Textarea } from "~/components/TextArea";
 
 export const Route = createFileRoute("/ensembles/create")({
   component: RouteComponent,
-})
+});
 
-const activeMusicians = ["1-4", "5-9", "10-24", "25-49", "50+"] as const
+const activeMusicians = ["1-4", "5-9", "10-24", "25-49", "50+"] as const;
 const practiceFrequency = [
   "daily",
   "weekly",
   "bi-weekly",
   "monthly",
   "bi-monthly",
-] as const
+] as const;
 const genres = [
   "baroque",
   "folk",
@@ -28,16 +28,16 @@ const genres = [
   "late-modern",
   "late-romantic",
   "symphonic",
-] as const
-const ensembleTypes = ["continuous", "project_based"] as const
+] as const;
+const ensembleTypes = ["continuous", "project_based"] as const;
 
 function RouteComponent() {
   const onSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const data = Object.fromEntries(formData.entries())
-    console.log(data)
-  }, [])
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+  }, []);
 
   return (
     <form className="flex flex-col gap-y-6 p-4 pb-16 pt-8" onSubmit={onSubmit}>
@@ -131,5 +131,5 @@ function RouteComponent() {
         Create ensemble
       </Button>
     </form>
-  )
+  );
 }

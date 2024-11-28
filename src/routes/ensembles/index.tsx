@@ -1,21 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router";
 
-import { EnsembleCard } from "~/components/Cards/EnsembleCard"
-import { FindEnsemblesHeader } from "~/components/pages/ensembles/FindEnsemblesHeader"
-import { Pagination } from "~/components/Pagination"
-import { EnsembleService } from "~/service/ensembles/ensemble-service"
+import { EnsembleCard } from "~/components/Cards/EnsembleCard";
+import { FindEnsemblesHeader } from "~/components/pages/ensembles/FindEnsemblesHeader";
+import { Pagination } from "~/components/Pagination";
+import { EnsembleService } from "~/service/ensembles/ensemble-service";
 
 export const Route = createFileRoute("/ensembles/")({
   component: RouteComponent,
   validateSearch: (search) => {
     return {
       page: search.page ? Math.round(Number(search.page)) : 1,
-    }
+    };
   },
   loaderDeps: ({ search: { page = 1 } }) => ({ page }),
   loader: async ({ deps: { page } }) =>
     await EnsembleService.getEnsembles({ page }),
-})
+});
 
 function RouteComponent() {
   return (
@@ -23,12 +23,12 @@ function RouteComponent() {
       <FindEnsemblesHeader />
       <EnsemblesList />
     </div>
-  )
+  );
 }
 
 function EnsemblesList() {
-  const { data, total } = Route.useLoaderData()
-  const { page } = Route.useSearch()
+  const { data, total } = Route.useLoaderData();
+  const { page } = Route.useSearch();
 
   return (
     <div className="flex flex-col p-4">
@@ -46,5 +46,5 @@ function EnsemblesList() {
         total={total}
       />
     </div>
-  )
+  );
 }

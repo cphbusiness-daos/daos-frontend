@@ -1,4 +1,4 @@
-import { cn } from "~/util/utils"
+import { cn } from "~/util/utils";
 
 export function Select({
   className,
@@ -12,5 +12,5 @@ export function Select({
       )}
       {...props}
     />
-  )
+  );
 }

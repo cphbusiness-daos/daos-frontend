@@ -1,19 +1,19 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createRootRoute,
   Outlet,
   ScrollRestoration,
-} from "@tanstack/react-router"
-import { Toaster } from "sonner"
+} from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
-import { Footer } from "~/components/Footer/Footer"
-import { Header } from "~/components/Header"
+import { Footer } from "~/components/Footer/Footer";
+import { Header } from "~/components/Header";
 
 export const Route = createRootRoute({
   component: RootLayout,
-})
+});
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function RootLayout() {
   return (
@@ -26,5 +26,5 @@ function RootLayout() {
       </main>
       <Footer />
     </QueryClientProvider>
-  )
+  );
 }

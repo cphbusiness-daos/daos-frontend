@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router";
 
-import type { Ensemble } from "~/service/ensembles/types"
+import type { Ensemble } from "~/service/ensembles/types";
 
-import { Heading } from "../Heading"
+import { Heading } from "../Heading";
 
 export function EnsembleProfileCard({ ensemble }: { ensemble: Ensemble }) {
   return (
@@ -20,7 +20,7 @@ export function EnsembleProfileCard({ ensemble }: { ensemble: Ensemble }) {
         {ensemble.name}
       </Heading>
     </Link>
-  )
+  );
 }
 
 export function EnsembleCard({ ensemble }: { ensemble: Ensemble }) {
@@ -48,5 +48,5 @@ export function EnsembleCard({ ensemble }: { ensemble: Ensemble }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

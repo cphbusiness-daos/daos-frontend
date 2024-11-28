@@ -1,34 +1,34 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router"
-import { useCallback } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { useCallback } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
-import { getSession } from "~/common/get-session"
-import { Button } from "~/components/Button"
-import { Heading } from "~/components/Heading"
-import { Input } from "~/components/InputField"
-import { AuthService } from "~/service/auth/auth-service"
-import { useSession } from "~/stores/AuthStore"
+import { getSession } from "~/common/get-session";
+import { Button } from "~/components/Button";
+import { Heading } from "~/components/Heading";
+import { Input } from "~/components/InputField";
+import { AuthService } from "~/service/auth/auth-service";
+import { useSession } from "~/stores/AuthStore";
 
 export const Route = createFileRoute("/auth/login")({
   component: LoginPage,
   beforeLoad: async () => {
-    const session = getSession()
+    const session = getSession();
     if (session) {
-      throw redirect({ to: "/" })
+      throw redirect({ to: "/" });
     }
   },
-})
+});
 
 const LoginFormScheme = z.object({
   email: z.string().min(1).email(),
   password: z
     .string()
     .min(8, { message: "Password should be at least 8 characters" }),
-})
+});
 
 function LoginPage() {
   const form = useForm<z.infer<typeof LoginFormScheme>>({
@@ -37,22 +37,22 @@ function LoginPage() {
       email: "",
       password: "",
     },
-  })
+  });
 
-  const { setToken } = useSession()
-  const navigate = useNavigate()
+  const { setToken } = useSession();
+  const navigate = useNavigate();
 
   const { mutateAsync: login } = useMutation({
     mutationFn: async () => await AuthService.login(form.getValues()),
     onSuccess: async (data) => {
-      setToken(data.token)
-      toast.success("Logged in successfully")
-      await navigate({ to: "/profile" })
+      setToken(data.token);
+      toast.success("Logged in successfully");
+      await navigate({ to: "/profile" });
     },
     onError: (error) => toast.error(error.message),
-  })
+  });
 
-  const onSubmit = useCallback(async () => await login(), [login])
+  const onSubmit = useCallback(async () => await login(), [login]);
 
   return (
     <div className="flex min-w-96 items-center justify-center">
@@ -83,5 +83,5 @@ function LoginPage() {
         </form>
       </div>
     </div>
-  )
+  );
 }

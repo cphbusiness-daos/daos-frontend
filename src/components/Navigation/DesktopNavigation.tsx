@@ -1,15 +1,15 @@
-import { Link, useNavigate } from "@tanstack/react-router"
-import { toast } from "sonner"
+import { Link, useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
-import { Button } from "~/components/Button"
-import { useSession } from "~/stores/AuthStore"
+import { Button } from "~/components/Button";
+import { useSession } from "~/stores/AuthStore";
 
-import { navOptions } from "./constants/nav-options"
-import { NavItem } from "./NavItem"
+import { navOptions } from "./constants/nav-options";
+import { NavItem } from "./NavItem";
 
 export function DesktopNavigation() {
-  const { token, clearToken } = useSession()
-  const navigate = useNavigate()
+  const { token, clearToken } = useSession();
+  const navigate = useNavigate();
 
   return (
     <nav className="hidden items-center gap-x-5 md:flex">
@@ -43,9 +43,9 @@ export function DesktopNavigation() {
             variant="secondary"
             size="md"
             onClick={async () => {
-              clearToken()
-              await navigate({ to: "/" })
-              toast.success("Du er nu logget ud")
+              clearToken();
+              await navigate({ to: "/" });
+              toast.success("Du er nu logget ud");
             }}
           >
             Log ud
@@ -53,5 +53,5 @@ export function DesktopNavigation() {
         </>
       )}
     </nav>
-  )
+  );
 }

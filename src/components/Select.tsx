@@ -1,16 +1,34 @@
+import type { FieldError, Path, UseFormRegister } from "react-hook-form";
+
 import { cn } from "~/util/utils";
 
-export function Select({
+export type SelectProps<T extends Record<string, unknown>> = {
+  name: Path<T>;
+  register: UseFormRegister<T>;
+  error?: FieldError;
+} & React.ComponentPropsWithoutRef<"select">;
+
+export function Select<T extends Record<string, unknown>>({
+  name,
+  register,
   className,
-  ...props
-}: React.ComponentPropsWithoutRef<"select">) {
+  error,
+  children,
+  ...rest
+}: SelectProps<T>) {
   return (
-    <select
-      className={cn(
-        "block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
-        className,
-      )}
-      {...props}
-    />
+    <div>
+      <select
+        {...register(name)}
+        className={cn(
+          "w-full rounded-md border p-2 text-sm shadow-md transition-colors focus:outline-none focus:ring-1",
+          className,
+        )}
+        {...rest}
+      >
+        {children}
+      </select>
+      {error && <span className="text-red-500">{error.message}</span>}
+    </div>
   );
 }

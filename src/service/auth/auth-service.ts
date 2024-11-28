@@ -33,6 +33,10 @@ export const AuthService = {
     );
     return data;
   },
+
+  async signOut() {
+    await axios.post("/api/v1/auth/logout", null, createAxiosConfig());
+  },
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {

@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   Outlet,
   ScrollRestoration,
 } from "@tanstack/react-router";
@@ -8,8 +8,9 @@ import { Toaster } from "sonner";
 
 import { Footer } from "~/components/Footer/Footer";
 import { Header } from "~/components/Header";
+import type { AuthStore } from "~/stores/AuthStore";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<AuthStore>()({
   component: RootLayout,
 });
 

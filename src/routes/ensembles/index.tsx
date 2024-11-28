@@ -4,9 +4,11 @@ import { EnsembleCard } from "~/components/Cards/EnsembleCard";
 import { FindEnsemblesHeader } from "~/components/pages/ensembles/FindEnsemblesHeader";
 import { Pagination } from "~/components/Pagination";
 import { EnsembleService } from "~/service/ensembles/ensemble-service";
+import { privateRouteGuard } from "~/util/auth-guard";
 
 export const Route = createFileRoute("/ensembles/")({
   component: RouteComponent,
+  beforeLoad: privateRouteGuard,
   validateSearch: (search) => {
     return {
       page: search.page ? Math.round(Number(search.page)) : 1,

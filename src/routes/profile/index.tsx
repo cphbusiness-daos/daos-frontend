@@ -4,9 +4,11 @@ import { ProfileHeader } from "~/components/pages/profile/ProfileHeader";
 import { UserEnsembles } from "~/components/pages/profile/UserEnsembles";
 import { AuthService } from "~/service/auth/auth-service";
 import { EnsembleService } from "~/service/ensembles/ensemble-service";
+import { privateRouteGuard } from "~/util/auth-guard";
 
 export const Route = createFileRoute("/profile/")({
   component: ProfilePage,
+  beforeLoad: privateRouteGuard,
   loader: async () => {
     const user = await AuthService.getLoggedInUser();
     const userEnsembles = await EnsembleService.getUserEnsembles({

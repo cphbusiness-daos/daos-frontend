@@ -6,8 +6,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { routeTree } from "./routeTree.gen";
+import { useSession } from "./stores/AuthStore";
 
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, context: undefined! });
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -15,8 +16,15 @@ declare module "@tanstack/react-router" {
   }
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
+function App() {
+  const session = useSession();
+
+  return <RouterProvider router={router} context={session} />;
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>,
 );

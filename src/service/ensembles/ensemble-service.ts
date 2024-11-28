@@ -1,5 +1,11 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
+import {
+  type activeMusicians,
+  type genres as genreTypes,
+  type practiceFrequency as practiceFrequencies,
+} from "~/util/constants";
+
 import type { Ensemble } from "./types";
 
 export const EnsembleService = {
@@ -55,6 +61,37 @@ export const EnsembleService = {
       const { data } = await axios.post<{ message: "OK" }>(
         `/api/v1/ensembles/${ensembleId}`,
         null,
+        createAxiosConfig(),
+      );
+      return data;
+    } catch (error) {
+      return null;
+    }
+  },
+
+  async createEnsemble(params: {
+    name: string;
+    imageUrl: string;
+    description: string;
+    homepage: string;
+    zip: string;
+    city: string;
+    activeMusicians: (typeof activeMusicians)[number];
+    practiceFrequency: (typeof practiceFrequencies)[number];
+    ensembleTypes: Array<"continuous" | "project_based">;
+    genre: Array<(typeof genreTypes)[number]>;
+  }) {
+    try {
+      const { data } = await axios.post<Ensemble>(
+        "/api/v1/ensembles",
+        {
+          ...params,
+          website: params.homepage,
+          zip_code: params.zip,
+          active_musicians: params.activeMusicians,
+          practice_frequency: params.practiceFrequency,
+          ensemble_type: params.ensembleTypes,
+        },
         createAxiosConfig(),
       );
       return data;

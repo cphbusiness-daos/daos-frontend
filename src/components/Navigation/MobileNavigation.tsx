@@ -1,9 +1,11 @@
+import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "~/components/Button";
+import { AuthService } from "~/service/auth/auth-service";
 import { useSession } from "~/stores/AuthStore";
 
 import { navOptions } from "./constants/nav-options";
@@ -40,7 +42,7 @@ function NavigationIcon({
 }) {
   return (
     <a
-      className="flex items-center justify-center transition-transform md:hidden"
+      className="flex items-center justify-center transition-transform lg:hidden"
       onClick={toggleMenu}
     >
       {isOpen ? (
@@ -84,6 +86,9 @@ function Overlay({ closeMenu }: { closeMenu: () => void }) {
 function MobileNavigationButtons() {
   const { token, clearSession } = useSession();
   const navigate = useNavigate();
+  const { mutateAsync: signOut } = useMutation({
+    mutationFn: async () => await AuthService.signOut(),
+  });
 
   return (
     <div className="flex flex-col gap-2">
@@ -107,6 +112,7 @@ function MobileNavigationButtons() {
             size="md"
             className="w-full"
             onClick={async () => {
+              await signOut();
               clearSession();
               await navigate({ to: "/" });
               toast.success("Du er nu logget ud");

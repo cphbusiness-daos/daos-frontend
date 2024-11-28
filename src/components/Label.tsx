@@ -6,7 +6,10 @@ export function Label({
 }: React.ComponentPropsWithRef<"label">) {
   return (
     <label
-      className={cn("w-fit text-sm font-semibold text-primary-blue", className)}
+      className={cn(
+        "w-fit pb-1 pl-2 text-sm font-semibold text-primary-blue",
+        className,
+      )}
       {...props}
     />
   );

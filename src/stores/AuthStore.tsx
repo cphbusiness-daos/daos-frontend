@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type AuthStore = {
+export type AuthStore = {
   token: string;
   session: { user: User } | null;
   setSession: (token: string) => void;
@@ -13,15 +13,14 @@ type User = {
   email: string;
 };
 
-export const useSession = create<AuthStore>()(
+const useDevSession = create<AuthStore>()(
   persist(
     (set) => ({
       token: "",
       session: null,
       setSession: (token: string) => {
         set({ token });
-        const user = parseToken(token);
-        set({ session: { user } });
+        set({ session: { user: parseToken(token) } });
       },
       clearSession: () => {
         set({ token: "" });
@@ -36,6 +35,12 @@ export const useSession = create<AuthStore>()(
 );
 
 function parseToken(token: string): User {
+  if (!token) {
+    return {
+      id: "1",
+      email: "",
+    };
+  }
   const [, payload] = token.split(".");
   const decoded = atob(payload);
   const { sub, email } = JSON.parse<{ sub: string; email: string }>(decoded);
@@ -43,6 +48,30 @@ function parseToken(token: string): User {
     id: sub,
     email,
   };
+  return {
+    id: "1",
+    email: "",
+  };
 }
 
-export const getSession = () => useSession.getState().token;
+const useProdSession = create<AuthStore>()(() => ({
+  token:
+    document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("auth"))
+      ?.split("=")[1] ?? "",
+  session: {
+    user: parseToken(
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("auth"))
+        ?.split("=")[1] ?? "",
+    ),
+  },
+  setSession: () => void 0,
+  clearSession: () =>
+    (document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"),
+}));
+
+export const useSession =
+  import.meta.env.MODE === "production" ? useProdSession : useDevSession;

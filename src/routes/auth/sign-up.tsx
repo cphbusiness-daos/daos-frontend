@@ -1,46 +1,65 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useMutation } from "@tanstack/react-query";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
-import { getSession } from "~/common/get-session";
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
 import { Input } from "~/components/InputField";
+import { AuthService } from "~/service/auth/auth-service";
+import { getSession, useSession } from "~/stores/AuthStore";
 
 export const Route = createFileRoute("/auth/sign-up")({
-  component: SignupPage,
+  component: SignUpPage,
   beforeLoad: async () => {
-    const session = getSession();
-    if (session) {
+    const token = getSession();
+    if (token) {
       throw redirect({ to: "/" });
     }
   },
 });
 
-const SignupFormScheme = z.object({
-  username: z.string().min(1),
+const SignUpFormScheme = z.object({
+  fullName: z.string().min(1),
   email: z.string().min(1).email(),
   password: z
     .string()
     .min(8, { message: "Password should be at least 8 characters" }),
-  terms: z.boolean().refine((value) => value, {
+  acceptedToc: z.boolean().refine((value) => value, {
     message: "You must accept the terms and conditions",
   }),
-  newsletter: z.boolean().optional(),
+  newsletterOptInAt: z.boolean().optional(),
 });
 
-function SignupPage() {
-  const form = useForm<z.infer<typeof SignupFormScheme>>({
-    resolver: zodResolver(SignupFormScheme),
+function SignUpPage() {
+  const form = useForm<z.infer<typeof SignUpFormScheme>>({
+    resolver: zodResolver(SignUpFormScheme),
     defaultValues: {
       email: "",
       password: "",
-      username: "",
-      terms: true,
-      newsletter: true,
+      fullName: "",
+      acceptedToc: true,
+      newsletterOptInAt: true,
     },
   });
+
+  const { setSession } = useSession();
+
+  const { mutateAsync: signUp } = useMutation({
+    mutationFn: async () => await AuthService.signUp(form.getValues()),
+    onSuccess: async ({ token }) => {
+      setSession(token);
+      toast.success("Profile created successfully");
+      await navigate({ to: "/profile" });
+    },
+  });
+
+  const navigate = useNavigate();
+
+  const onSubmit = useCallback(async () => await signUp(), [signUp]);
 
   return (
     <div className="flex min-w-96 items-center justify-center">
@@ -48,17 +67,15 @@ function SignupPage() {
         <Heading variant="h2">Opret Profil</Heading>
 
         <form
-          onSubmit={form.handleSubmit((data) => {
-            console.log("hi from sign up button", data);
-          })}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-4"
         >
           <Input
-            name="username"
+            name="fullName"
             placeholder="Brugernavn"
             register={form.register}
             type="text"
-            error={form.formState.errors.username}
+            error={form.formState.errors.fullName}
           />
           <Input
             name="email"

@@ -82,7 +82,7 @@ function Overlay({ closeMenu }: { closeMenu: () => void }) {
 }
 
 function MobileNavigationButtons() {
-  const { token, clearToken } = useSession();
+  const { token, clearSession } = useSession();
   const navigate = useNavigate();
 
   return (
@@ -107,7 +107,7 @@ function MobileNavigationButtons() {
             size="md"
             className="w-full"
             onClick={async () => {
-              clearToken();
+              clearSession();
               await navigate({ to: "/" });
               toast.success("Du er nu logget ud");
             }}

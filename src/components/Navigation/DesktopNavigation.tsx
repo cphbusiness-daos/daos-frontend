@@ -8,7 +8,7 @@ import { navOptions } from "./constants/nav-options";
 import { NavItem } from "./NavItem";
 
 export function DesktopNavigation() {
-  const { token, clearToken } = useSession();
+  const { token, clearSession } = useSession();
   const navigate = useNavigate();
 
   return (
@@ -43,7 +43,7 @@ export function DesktopNavigation() {
             variant="secondary"
             size="md"
             onClick={async () => {
-              clearToken();
+              clearSession();
               await navigate({ to: "/" });
               toast.success("Du er nu logget ud");
             }}

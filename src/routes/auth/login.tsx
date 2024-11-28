@@ -6,12 +6,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { getSession } from "~/common/get-session";
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
 import { Input } from "~/components/InputField";
 import { AuthService } from "~/service/auth/auth-service";
-import { useSession } from "~/stores/AuthStore";
+import { getSession, useSession } from "~/stores/AuthStore";
 
 export const Route = createFileRoute("/auth/login")({
   component: LoginPage,
@@ -39,13 +38,13 @@ function LoginPage() {
     },
   });
 
-  const { setToken } = useSession();
+  const { setSession } = useSession();
   const navigate = useNavigate();
 
   const { mutateAsync: login } = useMutation({
     mutationFn: async () => await AuthService.login(form.getValues()),
     onSuccess: async (data) => {
-      setToken(data.token);
+      setSession(data.token);
       toast.success("Logged in successfully");
       await navigate({ to: "/profile" });
     },

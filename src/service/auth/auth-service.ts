@@ -19,6 +19,20 @@ export const AuthService = {
     });
     return data;
   },
+
+  async signUp(reqBody: {
+    email: string;
+    password: string;
+    fullName: string;
+    acceptedToc: boolean;
+    newsletterOptInAt?: boolean;
+  }) {
+    const { data } = await axios.post<{ token: string }>(
+      "/api/v1/auth/signup",
+      reqBody,
+    );
+    return data;
+  },
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {

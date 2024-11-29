@@ -13,7 +13,7 @@ type User = {
   email: string;
 };
 
-const useDevSession = create<AuthStore>()(
+export const useSession = create<AuthStore>()(
   persist(
     (set) => ({
       token: "",
@@ -49,23 +49,3 @@ function parseToken(token: string): { user: User } {
     },
   };
 }
-
-// const useProdSession = create<AuthStore>()(() => ({
-//   token:
-//     document.cookie
-//       .split("; ")
-//       .find((row) => row.startsWith("auth"))
-//       ?.split("=")[1] ?? "",
-//   session: parseToken(
-//     document.cookie
-//       .split("; ")
-//       .find((row) => row.startsWith("auth"))
-//       ?.split("=")[1] ?? "",
-//   ),
-//   setSession: () => void 0,
-//   clearSession: () =>
-//     (document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"),
-// }));
-
-export const useSession =
-  import.meta.env.MODE === "production" ? useDevSession : useDevSession;

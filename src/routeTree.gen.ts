@@ -18,6 +18,7 @@ import { Route as EnsemblesCreateImport } from './routes/ensembles/create'
 import { Route as EnsemblesEnsembleIdImport } from './routes/ensembles/$ensembleId'
 import { Route as AuthSignUpImport } from './routes/auth/sign-up'
 import { Route as AuthLoginImport } from './routes/auth/login'
+import { Route as ProfileEditIndexImport } from './routes/profile/edit/index'
 
 // Create/Update Routes
 
@@ -60,6 +61,12 @@ const AuthSignUpRoute = AuthSignUpImport.update({
 const AuthLoginRoute = AuthLoginImport.update({
   id: '/auth/login',
   path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileEditIndexRoute = ProfileEditIndexImport.update({
+  id: '/profile/edit/',
+  path: '/profile/edit/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -116,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileIndexImport
       parentRoute: typeof rootRoute
     }
+    '/profile/edit/': {
+      id: '/profile/edit/'
+      path: '/profile/edit'
+      fullPath: '/profile/edit'
+      preLoaderRoute: typeof ProfileEditIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -129,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/ensembles/create': typeof EnsemblesCreateRoute
   '/ensembles': typeof EnsemblesIndexRoute
   '/profile': typeof ProfileIndexRoute
+  '/profile/edit': typeof ProfileEditIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -139,6 +154,7 @@ export interface FileRoutesByTo {
   '/ensembles/create': typeof EnsemblesCreateRoute
   '/ensembles': typeof EnsemblesIndexRoute
   '/profile': typeof ProfileIndexRoute
+  '/profile/edit': typeof ProfileEditIndexRoute
 }
 
 export interface FileRoutesById {
@@ -150,6 +166,7 @@ export interface FileRoutesById {
   '/ensembles/create': typeof EnsemblesCreateRoute
   '/ensembles/': typeof EnsemblesIndexRoute
   '/profile/': typeof ProfileIndexRoute
+  '/profile/edit/': typeof ProfileEditIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -162,6 +179,7 @@ export interface FileRouteTypes {
     | '/ensembles/create'
     | '/ensembles'
     | '/profile'
+    | '/profile/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -171,6 +189,7 @@ export interface FileRouteTypes {
     | '/ensembles/create'
     | '/ensembles'
     | '/profile'
+    | '/profile/edit'
   id:
     | '__root__'
     | '/'
@@ -180,6 +199,7 @@ export interface FileRouteTypes {
     | '/ensembles/create'
     | '/ensembles/'
     | '/profile/'
+    | '/profile/edit/'
   fileRoutesById: FileRoutesById
 }
 
@@ -191,6 +211,7 @@ export interface RootRouteChildren {
   EnsemblesCreateRoute: typeof EnsemblesCreateRoute
   EnsemblesIndexRoute: typeof EnsemblesIndexRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
+  ProfileEditIndexRoute: typeof ProfileEditIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -201,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnsemblesCreateRoute: EnsemblesCreateRoute,
   EnsemblesIndexRoute: EnsemblesIndexRoute,
   ProfileIndexRoute: ProfileIndexRoute,
+  ProfileEditIndexRoute: ProfileEditIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -219,7 +241,8 @@ export const routeTree = rootRoute
         "/ensembles/$ensembleId",
         "/ensembles/create",
         "/ensembles/",
-        "/profile/"
+        "/profile/",
+        "/profile/edit/"
       ]
     },
     "/": {
@@ -242,6 +265,9 @@ export const routeTree = rootRoute
     },
     "/profile/": {
       "filePath": "profile/index.tsx"
+    },
+    "/profile/edit/": {
+      "filePath": "profile/edit/index.tsx"
     }
   }
 }

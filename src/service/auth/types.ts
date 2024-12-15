@@ -4,6 +4,8 @@ export type User = UserBase & {
   bio?: string;
   deactivatedAt?: string;
   newsletterOptInAt?: string;
+  phoneNumber?: string;
+  birthDate?: string;
 };
 
 export type UserBase = {

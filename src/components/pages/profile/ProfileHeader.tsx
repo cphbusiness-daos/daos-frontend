@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { User } from "lucide-react";
 
 import { Button } from "~/components/Button";
@@ -22,9 +23,11 @@ export function ProfileHeader() {
         </div>
       </div>
       <div className="flex max-w-md gap-x-4">
-        <Button variant="secondary" className="w-full">
-          Rediger profil
-        </Button>
+        <Link to="/profile/edit" className="w-full">
+          <Button variant="secondary" className="w-full">
+            Rediger profil
+          </Button>
+        </Link>
         <Button variant="secondary" className="w-full">
           Indstillinger
         </Button>

@@ -53,6 +53,7 @@ export function CheckBox<T extends Record<string, unknown>>({
     <div className="relative flex cursor-pointer items-center">
       <input
         {...register(name)}
+        {...rest}
         type="checkbox"
         value={value}
         id={id}
@@ -60,7 +61,6 @@ export function CheckBox<T extends Record<string, unknown>>({
           "peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow transition-all checked:border-slate-800 checked:bg-primary-blue hover:shadow-md",
           className,
         )}
-        {...rest}
       />
       <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-white opacity-0 peer-checked:opacity-100">
         <svg

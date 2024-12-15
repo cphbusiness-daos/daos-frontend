@@ -2,23 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ProfileHeader } from "~/components/pages/profile/ProfileHeader";
 import { UserEnsembles } from "~/components/pages/profile/UserEnsembles";
-import { AuthService } from "~/service/auth/auth-service";
+import { UserService } from "~/service/auth/user-service";
 import { EnsembleService } from "~/service/ensembles/ensemble-service";
 import { privateRouteGuard } from "~/util/auth-guard";
 
-export const Route = createFileRoute("/profile/")({
-  component: ProfilePage,
+export const Route = createFileRoute("/users/$userId")({
+  component: UserProfile,
   beforeLoad: privateRouteGuard,
-  loader: async () => {
-    const user = await AuthService.getLoggedInUser();
+  loader: async ({ params: { userId } }) => {
+    const user = await UserService.getUserById({ userId });
     const userEnsembles = await EnsembleService.getUserEnsembles({
-      userId: user._id,
+      userId,
     });
     return { user, userEnsembles } as const;
   },
 });
 
-function ProfilePage() {
+function UserProfile() {
   const { user, userEnsembles } = Route.useLoaderData();
   return (
     <div className="flex max-h-max flex-col gap-5 bg-[#F9F9F9]">

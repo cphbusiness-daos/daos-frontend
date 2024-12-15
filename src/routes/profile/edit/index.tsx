@@ -14,9 +14,11 @@ import { Label } from "~/components/Label";
 import { TextArea } from "~/components/TextArea";
 import { AuthService } from "~/service/auth/auth-service";
 import { UserService } from "~/service/auth/user-service";
+import { privateRouteGuard } from "~/util/auth-guard";
 
 export const Route = createFileRoute("/profile/edit/")({
   component: UpdateProfile,
+  beforeLoad: privateRouteGuard,
   loader: async () => await AuthService.getLoggedInUser(),
 });
 

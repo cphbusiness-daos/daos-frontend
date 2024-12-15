@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
 import { Route as EnsemblesIndexImport } from './routes/ensembles/index'
+import { Route as UsersUserIdImport } from './routes/users/$userId'
 import { Route as EnsemblesCreateImport } from './routes/ensembles/create'
 import { Route as EnsemblesEnsembleIdImport } from './routes/ensembles/$ensembleId'
 import { Route as AuthSignUpImport } from './routes/auth/sign-up'
@@ -37,6 +38,12 @@ const ProfileIndexRoute = ProfileIndexImport.update({
 const EnsemblesIndexRoute = EnsemblesIndexImport.update({
   id: '/ensembles/',
   path: '/ensembles/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UsersUserIdRoute = UsersUserIdImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -109,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnsemblesCreateImport
       parentRoute: typeof rootRoute
     }
+    '/users/$userId': {
+      id: '/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof UsersUserIdImport
+      parentRoute: typeof rootRoute
+    }
     '/ensembles/': {
       id: '/ensembles/'
       path: '/ensembles'
@@ -141,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/auth/sign-up': typeof AuthSignUpRoute
   '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdRoute
   '/ensembles/create': typeof EnsemblesCreateRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/ensembles': typeof EnsemblesIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
@@ -152,6 +167,7 @@ export interface FileRoutesByTo {
   '/auth/sign-up': typeof AuthSignUpRoute
   '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdRoute
   '/ensembles/create': typeof EnsemblesCreateRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/ensembles': typeof EnsemblesIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
@@ -164,6 +180,7 @@ export interface FileRoutesById {
   '/auth/sign-up': typeof AuthSignUpRoute
   '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdRoute
   '/ensembles/create': typeof EnsemblesCreateRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/ensembles/': typeof EnsemblesIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/profile/edit/': typeof ProfileEditIndexRoute
@@ -177,6 +194,7 @@ export interface FileRouteTypes {
     | '/auth/sign-up'
     | '/ensembles/$ensembleId'
     | '/ensembles/create'
+    | '/users/$userId'
     | '/ensembles'
     | '/profile'
     | '/profile/edit'
@@ -187,6 +205,7 @@ export interface FileRouteTypes {
     | '/auth/sign-up'
     | '/ensembles/$ensembleId'
     | '/ensembles/create'
+    | '/users/$userId'
     | '/ensembles'
     | '/profile'
     | '/profile/edit'
@@ -197,6 +216,7 @@ export interface FileRouteTypes {
     | '/auth/sign-up'
     | '/ensembles/$ensembleId'
     | '/ensembles/create'
+    | '/users/$userId'
     | '/ensembles/'
     | '/profile/'
     | '/profile/edit/'
@@ -209,6 +229,7 @@ export interface RootRouteChildren {
   AuthSignUpRoute: typeof AuthSignUpRoute
   EnsemblesEnsembleIdRoute: typeof EnsemblesEnsembleIdRoute
   EnsemblesCreateRoute: typeof EnsemblesCreateRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
   EnsemblesIndexRoute: typeof EnsemblesIndexRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
   ProfileEditIndexRoute: typeof ProfileEditIndexRoute
@@ -220,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthSignUpRoute: AuthSignUpRoute,
   EnsemblesEnsembleIdRoute: EnsemblesEnsembleIdRoute,
   EnsemblesCreateRoute: EnsemblesCreateRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
   EnsemblesIndexRoute: EnsemblesIndexRoute,
   ProfileIndexRoute: ProfileIndexRoute,
   ProfileEditIndexRoute: ProfileEditIndexRoute,
@@ -240,6 +262,7 @@ export const routeTree = rootRoute
         "/auth/sign-up",
         "/ensembles/$ensembleId",
         "/ensembles/create",
+        "/users/$userId",
         "/ensembles/",
         "/profile/",
         "/profile/edit/"
@@ -259,6 +282,9 @@ export const routeTree = rootRoute
     },
     "/ensembles/create": {
       "filePath": "ensembles/create.tsx"
+    },
+    "/users/$userId": {
+      "filePath": "users/$userId.tsx"
     },
     "/ensembles/": {
       "filePath": "ensembles/index.tsx"

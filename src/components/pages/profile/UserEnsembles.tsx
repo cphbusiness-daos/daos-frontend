@@ -3,13 +3,13 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "~/components/Button";
 import { EnsembleProfileCard } from "~/components/Cards/EnsembleCard";
 import { Heading } from "~/components/Heading";
-import { Route } from "~/routes/profile";
 import type { Ensemble } from "~/service/ensembles/types";
 
-export function UserEnsembles() {
-  const {
-    userEnsembles: { data },
-  } = Route.useLoaderData();
+export function UserEnsembles({
+  userEnsembles,
+}: {
+  userEnsembles: Ensemble[];
+}) {
   return (
     <div className="flex flex-col gap-y-6 border-y border-gray-normal bg-white p-10">
       <div className="flex items-center justify-between">
@@ -23,7 +23,7 @@ export function UserEnsembles() {
         </Link>
       </div>
 
-      <EnsemblesList ensembles={data} />
+      <EnsemblesList ensembles={userEnsembles} />
     </div>
   );
 }

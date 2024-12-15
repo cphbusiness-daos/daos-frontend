@@ -6,6 +6,14 @@ import type { AuthSessionStorage } from "../ensembles/ensemble-service";
 import type { User } from "./types";
 
 export const UserService = {
+  async getUserById({ userId }: { userId: string }) {
+    const { data } = await axios.get<User>(
+      `/v1/users/${userId}`,
+      createAxiosConfig(),
+    );
+    return data;
+  },
+
   async updateUser(reqBody: {
     fullName?: string;
     newsletterOptIn?: boolean;

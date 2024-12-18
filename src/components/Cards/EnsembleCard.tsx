@@ -7,6 +7,7 @@ import { Heading } from "../Heading";
 export function EnsembleProfileCard({ ensemble }: { ensemble: Ensemble }) {
   return (
     <Link
+      resetScroll={true}
       to="/ensembles/$ensembleId"
       params={{ ensembleId: ensemble._id }}
       className="flex flex-col rounded-xl border border-gray-normal shadow-sm"
@@ -26,6 +27,7 @@ export function EnsembleProfileCard({ ensemble }: { ensemble: Ensemble }) {
 export function EnsembleCard({ ensemble }: { ensemble: Ensemble }) {
   return (
     <Link
+      resetScroll={true}
       to="/ensembles/$ensembleId"
       params={{ ensembleId: ensemble._id }}
       className="flex flex-col rounded-xl border border-gray-normal shadow-sm"

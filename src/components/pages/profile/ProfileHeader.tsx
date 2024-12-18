@@ -21,7 +21,7 @@ export function ProfileHeader({ user }: { user: User }) {
         </div>
       </div>
       <div className="flex max-w-md gap-x-4">
-        <Link to="/profile/edit" className="w-full">
+        <Link resetScroll={true} to="/profile/edit" className="w-full">
           <Button variant="secondary" className="w-full">
             Rediger profil
           </Button>

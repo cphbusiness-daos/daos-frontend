@@ -5,12 +5,18 @@ export function MobileFooter() {
     <footer className="flex h-[calc(100vh-55vh)] flex-col justify-between bg-primary-red p-10 text-xl text-white lg:hidden">
       <p className="text-2xl font-bold uppercase">Musik samspil</p>
       <div className="flex flex-col font-semibold">
-        <Link to="/">Hjem</Link>
-        <Link to="/">Find musiker</Link>
-        <Link to="/ensembles" search={{ page: 1 }}>
+        <Link resetScroll={true} to="/">
+          Hjem
+        </Link>
+        <Link resetScroll={true} to="/">
+          Find musiker
+        </Link>
+        <Link resetScroll={true} to="/ensembles" search={{ page: 1 }}>
           Find ensemble
         </Link>
-        <Link to="/profile">Profil</Link>
+        <Link resetScroll={true} to="/profile">
+          Profil
+        </Link>
       </div>
       <div className="flex flex-row gap-4">
         <a

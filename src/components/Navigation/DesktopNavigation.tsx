@@ -26,12 +26,12 @@ export function DesktopNavigation() {
 
       {!token ? (
         <>
-          <Link to="/auth/sign-up">
+          <Link resetScroll={true} to="/auth/sign-up">
             <Button variant="primary" size="md" className="">
               Opret bruger
             </Button>
           </Link>
-          <Link to="/auth/login">
+          <Link resetScroll={true} to="/auth/login">
             <Button variant="secondary" size="md">
               Log ind
             </Button>
@@ -39,7 +39,7 @@ export function DesktopNavigation() {
         </>
       ) : (
         <>
-          <Link to="/profile">
+          <Link resetScroll={true} to="/profile">
             <Button variant="primary" size="md">
               Profil
             </Button>

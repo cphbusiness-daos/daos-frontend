@@ -19,6 +19,7 @@ export function NavItem({
 
   return (
     <Link
+      resetScroll={true}
       to={href}
       className={cn(
         "font-semibold text-primary-blue",

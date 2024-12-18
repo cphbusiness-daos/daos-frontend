@@ -31,12 +31,22 @@ export function Pagination<T>({
 
   return (
     <div className="mt-4 flex justify-center gap-2">
-      <Link to={route} search={{ page: page - 1 }} disabled={disabledPrev}>
+      <Link
+        resetScroll={true}
+        to={route}
+        search={{ page: page - 1 }}
+        disabled={disabledPrev}
+      >
         <Button variant="secondary" disabled={disabledPrev}>
           Previous
         </Button>
       </Link>
-      <Link to={route} search={{ page: page + 1 }} disabled={disabledNext}>
+      <Link
+        resetScroll={true}
+        to={route}
+        search={{ page: page + 1 }}
+        disabled={disabledNext}
+      >
         <Button variant="secondary" disabled={disabledNext}>
           Next
         </Button>

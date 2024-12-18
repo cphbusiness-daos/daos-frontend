@@ -67,7 +67,11 @@ export function EnsembleDetails() {
           children={
             <div className="flex items-center justify-between">
               <p>{ensemble.admin?.fullName}</p>
-              <Link to="/users/$userId" params={{ userId: ensemble.admin._id }}>
+              <Link
+                resetScroll={true}
+                to="/users/$userId"
+                params={{ userId: ensemble.admin._id }}
+              >
                 <Button variant="secondary" size="sm">
                   Vis profil
                 </Button>

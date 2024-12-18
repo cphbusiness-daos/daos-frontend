@@ -8,8 +8,12 @@ export function DesktopFooter() {
         <div className="flex flex-col items-start justify-center gap-6">
           <p className="text-2xl font-bold uppercase">Musik samspil</p>
           <div className="flex gap-4 font-semibold">
-            <Link to="/">Se opslag</Link>
-            <Link to="/profile">Profil</Link>
+            <Link resetScroll={true} to="/">
+              Se opslag
+            </Link>
+            <Link resetScroll={true} to="/profile">
+              Profil
+            </Link>
           </div>
           <div className="flex flex-row gap-4">
             <a
@@ -71,7 +75,7 @@ export function DesktopFooter() {
 
       {/* Privacy Policy */}
       <div className="py-4 text-center text-sm">
-        <Link to="/" className="text-white">
+        <Link resetScroll={true} to="/" className="text-white">
           Privatlivspolitik
         </Link>
       </div>

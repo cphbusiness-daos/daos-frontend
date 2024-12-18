@@ -10,10 +10,10 @@ export function DesktopSection() {
           Stedet hvor amatørmusikere finder hinanden og spiller musik sammen
         </p>
         <div className="flex gap-x-4">
-          <Link to="/">
+          <Link resetScroll={true} to="/">
             <Button variant="primary">Se Opslag</Button>
           </Link>
-          <Link to="/">
+          <Link resetScroll={true} to="/">
             <Button variant="secondary">Se Opslag</Button>
           </Link>
         </div>

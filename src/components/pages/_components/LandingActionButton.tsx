@@ -12,7 +12,7 @@ export function ActionButton({
   children: React.ReactNode;
 }) {
   return (
-    <Link to={href} className="flex-grow">
+    <Link resetScroll={true} to={href} className="flex-grow">
       <Button
         variant="secondary"
         className="flex h-fit w-full flex-col items-center justify-center gap-2"

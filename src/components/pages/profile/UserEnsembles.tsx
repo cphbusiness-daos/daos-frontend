@@ -16,7 +16,7 @@ export function UserEnsembles({
         <Heading variant="h2" className="text-xl">
           My ensembles
         </Heading>
-        <Link to="/ensembles/create">
+        <Link resetScroll={true} to="/ensembles/create">
           <Button variant="secondary" size="sm">
             Create
           </Button>

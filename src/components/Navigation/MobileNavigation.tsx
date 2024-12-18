@@ -94,12 +94,12 @@ function MobileNavigationButtons() {
     <div className="flex flex-col gap-2">
       {!token ? (
         <>
-          <Link to="/auth/sign-up" className="w-full">
+          <Link resetScroll={true} to="/auth/sign-up" className="w-full">
             <Button variant="primary" size="md" className="w-full">
               Opret bruger
             </Button>
           </Link>
-          <Link to="/auth/login" className="w-full">
+          <Link resetScroll={true} to="/auth/login" className="w-full">
             <Button variant="secondary" size="md" className="w-full">
               Log ind
             </Button>

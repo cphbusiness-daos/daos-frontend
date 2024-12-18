@@ -22,14 +22,22 @@ export const EnsembleService = {
     }
   },
 
-  async getEnsembles({ page = 1 }: { page: number }) {
+  async getEnsembles({
+    page = 1,
+    city,
+    name,
+  }: {
+    page: number;
+    name?: string;
+    city?: string;
+  }) {
     try {
       const { data } = await axios.get<{
         data: Ensemble[];
         length: number;
         total: number;
       }>("/v1/ensembles", {
-        params: { page },
+        params: { page, city, name },
         ...createAxiosConfig(),
       });
       return data;

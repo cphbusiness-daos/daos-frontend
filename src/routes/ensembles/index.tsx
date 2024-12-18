@@ -12,11 +12,12 @@ export const Route = createFileRoute("/ensembles/")({
   validateSearch: (search) => {
     return {
       page: search.page ? Math.round(Number(search.page)) : 1,
+      name: typeof search.name === "string" ? search.name : undefined,
+      city: typeof search.city === "string" ? search.city : undefined,
     };
   },
-  loaderDeps: ({ search: { page = 1 } }) => ({ page }),
-  loader: async ({ deps: { page } }) =>
-    await EnsembleService.getEnsembles({ page }),
+  loaderDeps: ({ search: { page = 1, ...rest } }) => ({ page, ...rest }),
+  loader: async ({ deps }) => await EnsembleService.getEnsembles(deps),
 });
 
 function RouteComponent() {

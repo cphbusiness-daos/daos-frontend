@@ -11,7 +11,11 @@ export function MobileFooter() {
         <Link resetScroll={true} to="/">
           Find musiker
         </Link>
-        <Link resetScroll={true} to="/ensembles" search={{ page: 1 }}>
+        <Link
+          resetScroll={true}
+          to="/ensembles"
+          search={{ page: 1, city: undefined, name: undefined }}
+        >
           Find ensemble
         </Link>
         <Link resetScroll={true} to="/profile">

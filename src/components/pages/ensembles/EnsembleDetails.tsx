@@ -7,10 +7,12 @@ import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
 import { Route } from "~/routes/ensembles/$ensembleId";
 import { EnsembleService } from "~/service/ensembles/ensemble-service";
+import { useSession } from "~/stores/AuthStore";
 
 export function EnsembleDetails() {
   const { ensemble, userEnsemble } = Route.useLoaderData();
   const router = useRouter();
+  const { session } = useSession();
 
   const { mutateAsync: joinEnsemble } = useMutation({
     mutationFn: async () =>
@@ -95,6 +97,16 @@ export function EnsembleDetails() {
         >
           Bliv medlem
         </Button>
+      )}
+      {session?.user?.id === ensemble.admin?._id && (
+        <Link
+          to="/ensembles/$ensembleId/edit"
+          params={{ ensembleId: ensemble._id }}
+        >
+          <Button variant="primary" size="lg" className="w-full">
+            Rediger ensemble
+          </Button>
+        </Link>
       )}
     </div>
   );

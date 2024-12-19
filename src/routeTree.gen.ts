@@ -16,10 +16,11 @@ import { Route as ProfileIndexImport } from './routes/profile/index'
 import { Route as EnsemblesIndexImport } from './routes/ensembles/index'
 import { Route as UsersUserIdImport } from './routes/users/$userId'
 import { Route as EnsemblesCreateImport } from './routes/ensembles/create'
-import { Route as EnsemblesEnsembleIdImport } from './routes/ensembles/$ensembleId'
 import { Route as AuthSignUpImport } from './routes/auth/sign-up'
 import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as ProfileEditIndexImport } from './routes/profile/edit/index'
+import { Route as EnsemblesEnsembleIdIndexImport } from './routes/ensembles/$ensembleId/index'
+import { Route as EnsemblesEnsembleIdEditImport } from './routes/ensembles/$ensembleId/edit'
 
 // Create/Update Routes
 
@@ -53,12 +54,6 @@ const EnsemblesCreateRoute = EnsemblesCreateImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const EnsemblesEnsembleIdRoute = EnsemblesEnsembleIdImport.update({
-  id: '/ensembles/$ensembleId',
-  path: '/ensembles/$ensembleId',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const AuthSignUpRoute = AuthSignUpImport.update({
   id: '/auth/sign-up',
   path: '/auth/sign-up',
@@ -74,6 +69,18 @@ const AuthLoginRoute = AuthLoginImport.update({
 const ProfileEditIndexRoute = ProfileEditIndexImport.update({
   id: '/profile/edit/',
   path: '/profile/edit/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EnsemblesEnsembleIdIndexRoute = EnsemblesEnsembleIdIndexImport.update({
+  id: '/ensembles/$ensembleId/',
+  path: '/ensembles/$ensembleId/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EnsemblesEnsembleIdEditRoute = EnsemblesEnsembleIdEditImport.update({
+  id: '/ensembles/$ensembleId/edit',
+  path: '/ensembles/$ensembleId/edit',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -100,13 +107,6 @@ declare module '@tanstack/react-router' {
       path: '/auth/sign-up'
       fullPath: '/auth/sign-up'
       preLoaderRoute: typeof AuthSignUpImport
-      parentRoute: typeof rootRoute
-    }
-    '/ensembles/$ensembleId': {
-      id: '/ensembles/$ensembleId'
-      path: '/ensembles/$ensembleId'
-      fullPath: '/ensembles/$ensembleId'
-      preLoaderRoute: typeof EnsemblesEnsembleIdImport
       parentRoute: typeof rootRoute
     }
     '/ensembles/create': {
@@ -137,6 +137,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileIndexImport
       parentRoute: typeof rootRoute
     }
+    '/ensembles/$ensembleId/edit': {
+      id: '/ensembles/$ensembleId/edit'
+      path: '/ensembles/$ensembleId/edit'
+      fullPath: '/ensembles/$ensembleId/edit'
+      preLoaderRoute: typeof EnsemblesEnsembleIdEditImport
+      parentRoute: typeof rootRoute
+    }
+    '/ensembles/$ensembleId/': {
+      id: '/ensembles/$ensembleId/'
+      path: '/ensembles/$ensembleId'
+      fullPath: '/ensembles/$ensembleId'
+      preLoaderRoute: typeof EnsemblesEnsembleIdIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/profile/edit/': {
       id: '/profile/edit/'
       path: '/profile/edit'
@@ -153,11 +167,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdRoute
   '/ensembles/create': typeof EnsemblesCreateRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/ensembles': typeof EnsemblesIndexRoute
   '/profile': typeof ProfileIndexRoute
+  '/ensembles/$ensembleId/edit': typeof EnsemblesEnsembleIdEditRoute
+  '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
 }
 
@@ -165,11 +180,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdRoute
   '/ensembles/create': typeof EnsemblesCreateRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/ensembles': typeof EnsemblesIndexRoute
   '/profile': typeof ProfileIndexRoute
+  '/ensembles/$ensembleId/edit': typeof EnsemblesEnsembleIdEditRoute
+  '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
 }
 
@@ -178,11 +194,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdRoute
   '/ensembles/create': typeof EnsemblesCreateRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/ensembles/': typeof EnsemblesIndexRoute
   '/profile/': typeof ProfileIndexRoute
+  '/ensembles/$ensembleId/edit': typeof EnsemblesEnsembleIdEditRoute
+  '/ensembles/$ensembleId/': typeof EnsemblesEnsembleIdIndexRoute
   '/profile/edit/': typeof ProfileEditIndexRoute
 }
 
@@ -192,33 +209,36 @@ export interface FileRouteTypes {
     | '/'
     | '/auth/login'
     | '/auth/sign-up'
-    | '/ensembles/$ensembleId'
     | '/ensembles/create'
     | '/users/$userId'
     | '/ensembles'
     | '/profile'
+    | '/ensembles/$ensembleId/edit'
+    | '/ensembles/$ensembleId'
     | '/profile/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth/login'
     | '/auth/sign-up'
-    | '/ensembles/$ensembleId'
     | '/ensembles/create'
     | '/users/$userId'
     | '/ensembles'
     | '/profile'
+    | '/ensembles/$ensembleId/edit'
+    | '/ensembles/$ensembleId'
     | '/profile/edit'
   id:
     | '__root__'
     | '/'
     | '/auth/login'
     | '/auth/sign-up'
-    | '/ensembles/$ensembleId'
     | '/ensembles/create'
     | '/users/$userId'
     | '/ensembles/'
     | '/profile/'
+    | '/ensembles/$ensembleId/edit'
+    | '/ensembles/$ensembleId/'
     | '/profile/edit/'
   fileRoutesById: FileRoutesById
 }
@@ -227,11 +247,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
-  EnsemblesEnsembleIdRoute: typeof EnsemblesEnsembleIdRoute
   EnsemblesCreateRoute: typeof EnsemblesCreateRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
   EnsemblesIndexRoute: typeof EnsemblesIndexRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
+  EnsemblesEnsembleIdEditRoute: typeof EnsemblesEnsembleIdEditRoute
+  EnsemblesEnsembleIdIndexRoute: typeof EnsemblesEnsembleIdIndexRoute
   ProfileEditIndexRoute: typeof ProfileEditIndexRoute
 }
 
@@ -239,11 +260,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthSignUpRoute: AuthSignUpRoute,
-  EnsemblesEnsembleIdRoute: EnsemblesEnsembleIdRoute,
   EnsemblesCreateRoute: EnsemblesCreateRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   EnsemblesIndexRoute: EnsemblesIndexRoute,
   ProfileIndexRoute: ProfileIndexRoute,
+  EnsemblesEnsembleIdEditRoute: EnsemblesEnsembleIdEditRoute,
+  EnsemblesEnsembleIdIndexRoute: EnsemblesEnsembleIdIndexRoute,
   ProfileEditIndexRoute: ProfileEditIndexRoute,
 }
 
@@ -260,11 +282,12 @@ export const routeTree = rootRoute
         "/",
         "/auth/login",
         "/auth/sign-up",
-        "/ensembles/$ensembleId",
         "/ensembles/create",
         "/users/$userId",
         "/ensembles/",
         "/profile/",
+        "/ensembles/$ensembleId/edit",
+        "/ensembles/$ensembleId/",
         "/profile/edit/"
       ]
     },
@@ -277,9 +300,6 @@ export const routeTree = rootRoute
     "/auth/sign-up": {
       "filePath": "auth/sign-up.tsx"
     },
-    "/ensembles/$ensembleId": {
-      "filePath": "ensembles/$ensembleId.tsx"
-    },
     "/ensembles/create": {
       "filePath": "ensembles/create.tsx"
     },
@@ -291,6 +311,12 @@ export const routeTree = rootRoute
     },
     "/profile/": {
       "filePath": "profile/index.tsx"
+    },
+    "/ensembles/$ensembleId/edit": {
+      "filePath": "ensembles/$ensembleId/edit.tsx"
+    },
+    "/ensembles/$ensembleId/": {
+      "filePath": "ensembles/$ensembleId/index.tsx"
     },
     "/profile/edit/": {
       "filePath": "profile/edit/index.tsx"

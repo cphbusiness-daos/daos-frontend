@@ -108,6 +108,38 @@ export const EnsembleService = {
       return null;
     }
   },
+
+  async updateEnsemble(params: {
+    ensembleId: string;
+    name?: string;
+    imageUrl?: string;
+    description?: string;
+    homepage?: string;
+    zip?: string;
+    city?: string;
+    activeMusicians?: (typeof activeMusicians)[number];
+    practiceFrequency?: (typeof practiceFrequencies)[number];
+    ensembleTypes?: Array<"continuous" | "project_based">;
+    genre?: Array<(typeof genreTypes)[number]>;
+  }) {
+    try {
+      const { data } = await axios.put<Ensemble>(
+        `/v1/ensembles/${params.ensembleId}`,
+        {
+          ...params,
+          website: params.homepage,
+          zip_code: params.zip,
+          active_musicians: params.activeMusicians,
+          practice_frequency: params.practiceFrequency,
+          ensemble_type: params.ensembleTypes,
+        },
+        createAxiosConfig(),
+      );
+      return data;
+    } catch (error) {
+      return null;
+    }
+  },
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {

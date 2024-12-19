@@ -53,7 +53,7 @@ export function EnsembleDetails() {
       <EnsembleDetail
         title="Genre"
         children={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {ensemble.genre.map((genre) => (
               <Badge key={genre} variant="genre">
                 {genre}

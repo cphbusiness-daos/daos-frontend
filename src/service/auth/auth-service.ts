@@ -38,6 +38,10 @@ export const AuthService = {
     return data;
   },
 
+  async updatePassword(reqBody: { password: string; newPassword: string }) {
+    await axios.post("/v1/auth/reset-password", reqBody, createAxiosConfig());
+  },
+
   async signOut() {
     await axios.post("/v1/auth/logout", null, createAxiosConfig());
   },

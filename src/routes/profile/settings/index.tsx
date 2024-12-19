@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "~/components/Button";
 import { Heading } from "~/components/Heading";
 import { GeneralSettings } from "~/components/pages/profile/settings/GeneralSettings";
+import { UpdatePassword } from "~/components/pages/profile/settings/UpdatePassword";
 import { AuthService } from "~/service/auth/auth-service";
 import { privateRouteGuard } from "~/util/auth-guard";
 
@@ -28,6 +29,7 @@ function RouteComponent() {
         </Button>
       </Link>
       <Heading variant="h1">Instillinger</Heading>
+      <UpdatePassword />
       <GeneralSettings />
     </div>
   );

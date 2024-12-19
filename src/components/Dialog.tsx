@@ -7,11 +7,13 @@ export function Dialog({
   title,
   description,
   onConfirm,
+  disabled,
 }: {
   children: React.ReactNode;
   title: React.ReactNode;
   description: React.ReactNode;
   onConfirm: () => void;
+  disabled?: boolean;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -30,7 +32,7 @@ export function Dialog({
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
-      <div onClick={openDialog} className="w-full">
+      <div onClick={disabled ? void 0 : openDialog} className="w-full">
         {children}
       </div>
       <dialog

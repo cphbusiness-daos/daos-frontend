@@ -26,9 +26,11 @@ export function ProfileHeader({ user }: { user: User }) {
             Rediger profil
           </Button>
         </Link>
-        <Button variant="secondary" className="w-full">
-          Indstillinger
-        </Button>
+        <Link resetScroll={true} to="/profile/settings" className="w-full">
+          <Button variant="secondary" className="w-full">
+            Indstillinger
+          </Button>
+        </Link>
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ import { Route as UsersUserIdImport } from './routes/users/$userId'
 import { Route as EnsemblesCreateImport } from './routes/ensembles/create'
 import { Route as AuthSignUpImport } from './routes/auth/sign-up'
 import { Route as AuthLoginImport } from './routes/auth/login'
+import { Route as ProfileSettingsIndexImport } from './routes/profile/settings/index'
 import { Route as ProfileEditIndexImport } from './routes/profile/edit/index'
 import { Route as EnsemblesEnsembleIdIndexImport } from './routes/ensembles/$ensembleId/index'
 import { Route as EnsemblesEnsembleIdEditImport } from './routes/ensembles/$ensembleId/edit'
@@ -63,6 +64,12 @@ const AuthSignUpRoute = AuthSignUpImport.update({
 const AuthLoginRoute = AuthLoginImport.update({
   id: '/auth/login',
   path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileSettingsIndexRoute = ProfileSettingsIndexImport.update({
+  id: '/profile/settings/',
+  path: '/profile/settings/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -158,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileEditIndexImport
       parentRoute: typeof rootRoute
     }
+    '/profile/settings/': {
+      id: '/profile/settings/'
+      path: '/profile/settings'
+      fullPath: '/profile/settings'
+      preLoaderRoute: typeof ProfileSettingsIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -174,6 +188,7 @@ export interface FileRoutesByFullPath {
   '/ensembles/$ensembleId/edit': typeof EnsemblesEnsembleIdEditRoute
   '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
+  '/profile/settings': typeof ProfileSettingsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -187,6 +202,7 @@ export interface FileRoutesByTo {
   '/ensembles/$ensembleId/edit': typeof EnsemblesEnsembleIdEditRoute
   '/ensembles/$ensembleId': typeof EnsemblesEnsembleIdIndexRoute
   '/profile/edit': typeof ProfileEditIndexRoute
+  '/profile/settings': typeof ProfileSettingsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -201,6 +217,7 @@ export interface FileRoutesById {
   '/ensembles/$ensembleId/edit': typeof EnsemblesEnsembleIdEditRoute
   '/ensembles/$ensembleId/': typeof EnsemblesEnsembleIdIndexRoute
   '/profile/edit/': typeof ProfileEditIndexRoute
+  '/profile/settings/': typeof ProfileSettingsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -216,6 +233,7 @@ export interface FileRouteTypes {
     | '/ensembles/$ensembleId/edit'
     | '/ensembles/$ensembleId'
     | '/profile/edit'
+    | '/profile/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -228,6 +246,7 @@ export interface FileRouteTypes {
     | '/ensembles/$ensembleId/edit'
     | '/ensembles/$ensembleId'
     | '/profile/edit'
+    | '/profile/settings'
   id:
     | '__root__'
     | '/'
@@ -240,6 +259,7 @@ export interface FileRouteTypes {
     | '/ensembles/$ensembleId/edit'
     | '/ensembles/$ensembleId/'
     | '/profile/edit/'
+    | '/profile/settings/'
   fileRoutesById: FileRoutesById
 }
 
@@ -254,6 +274,7 @@ export interface RootRouteChildren {
   EnsemblesEnsembleIdEditRoute: typeof EnsemblesEnsembleIdEditRoute
   EnsemblesEnsembleIdIndexRoute: typeof EnsemblesEnsembleIdIndexRoute
   ProfileEditIndexRoute: typeof ProfileEditIndexRoute
+  ProfileSettingsIndexRoute: typeof ProfileSettingsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -267,6 +288,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnsemblesEnsembleIdEditRoute: EnsemblesEnsembleIdEditRoute,
   EnsemblesEnsembleIdIndexRoute: EnsemblesEnsembleIdIndexRoute,
   ProfileEditIndexRoute: ProfileEditIndexRoute,
+  ProfileSettingsIndexRoute: ProfileSettingsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -288,7 +310,8 @@ export const routeTree = rootRoute
         "/profile/",
         "/ensembles/$ensembleId/edit",
         "/ensembles/$ensembleId/",
-        "/profile/edit/"
+        "/profile/edit/",
+        "/profile/settings/"
       ]
     },
     "/": {
@@ -320,6 +343,9 @@ export const routeTree = rootRoute
     },
     "/profile/edit/": {
       "filePath": "profile/edit/index.tsx"
+    },
+    "/profile/settings/": {
+      "filePath": "profile/settings/index.tsx"
     }
   }
 }

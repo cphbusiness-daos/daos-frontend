@@ -29,6 +29,10 @@ export const UserService = {
     );
     return data;
   },
+
+  async deleteUser() {
+    await axios.delete("/v1/users", createAxiosConfig());
+  },
 } as const;
 
 function createAxiosConfig(): AxiosRequestConfig {

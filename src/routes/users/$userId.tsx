@@ -9,10 +9,17 @@ import { privateRouteGuard } from "~/util/auth-guard";
 export const Route = createFileRoute("/users/$userId")({
   component: UserProfile,
   beforeLoad: privateRouteGuard,
-  loader: async ({ params: { userId } }) => {
+  validateSearch: (search) => {
+    return {
+      page: search.page ? Math.round(Number(search.page)) : 1,
+    };
+  },
+  loaderDeps: ({ search: { page = 1 } }) => ({ page }),
+  loader: async ({ params: { userId }, deps: { page } }) => {
     const user = await UserService.getUserById({ userId });
     const userEnsembles = await EnsembleService.getUserEnsembles({
       userId,
+      page,
     });
     return { user, userEnsembles } as const;
   },
@@ -23,7 +30,7 @@ function UserProfile() {
   return (
     <div className="flex max-h-max flex-col gap-5 bg-[#F9F9F9]">
       <ProfileHeader user={user} />
-      <UserEnsembles userEnsembles={userEnsembles.data} />
+      <UserEnsembles userEnsembles={userEnsembles.data} Route={Route} />
       <div className="h-10" />
     </div>
   );

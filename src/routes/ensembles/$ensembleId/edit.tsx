@@ -29,7 +29,7 @@ export const Route = createFileRoute("/ensembles/$ensembleId/edit")({
 
     // Redirect if user is not the admin of the ensemble
     if (context.session?.user?.id !== context.session?.user?.id) {
-      throw redirect({ to: "/profile" });
+      throw redirect({ to: "/profile", search: { page: 1 } });
     }
 
     return { ensemble } as const;

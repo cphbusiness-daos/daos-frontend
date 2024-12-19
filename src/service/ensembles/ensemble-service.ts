@@ -50,17 +50,22 @@ export const EnsembleService = {
     }
   },
 
-  async getUserEnsembles({ userId }: { userId: string }) {
+  async getUserEnsembles({ userId, page }: { userId: string; page?: number }) {
     try {
       const { data } = await axios.get<{
         data: Ensemble[];
         length: number;
-      }>(`/v1/ensembles/users/${userId}`, createAxiosConfig());
+        total: number;
+      }>(`/v1/ensembles/users/${userId}`, {
+        ...createAxiosConfig(),
+        params: { page },
+      });
       return data;
     } catch (error) {
       return {
         data: [],
         length: 0,
+        total: 0,
       };
     }
   },

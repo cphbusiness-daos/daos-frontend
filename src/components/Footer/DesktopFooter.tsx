@@ -11,7 +11,7 @@ export function DesktopFooter() {
             <Link resetScroll={true} to="/">
               Se opslag
             </Link>
-            <Link resetScroll={true} to="/profile">
+            <Link resetScroll={true} to="/profile" search={{ page: 1 }}>
               Profil
             </Link>
           </div>

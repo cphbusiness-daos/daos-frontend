@@ -42,7 +42,7 @@ function LoginPage() {
     onSuccess: async (data) => {
       setSession(data.token);
       toast.success("Logged in successfully");
-      await navigate({ to: "/profile" });
+      await navigate({ to: "/profile", search: { page: 1 } });
     },
     onError: (error) => toast.error(error.message),
   });

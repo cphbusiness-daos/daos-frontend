@@ -60,7 +60,7 @@ function UpdateProfile() {
       className="flex flex-col gap-y-6 p-4 pb-16 pt-8"
       onSubmit={form.handleSubmit(onSubmit)}
     >
-      <Link resetScroll={true} to="/profile">
+      <Link resetScroll={true} to="/profile" search={{ page: 1 }}>
         <Button
           type="button"
           variant="secondary"

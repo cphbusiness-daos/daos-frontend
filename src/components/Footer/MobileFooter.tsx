@@ -18,7 +18,7 @@ export function MobileFooter() {
         >
           Find ensemble
         </Link>
-        <Link resetScroll={true} to="/profile">
+        <Link resetScroll={true} to="/profile" search={{ page: 1 }}>
           Profil
         </Link>
       </div>

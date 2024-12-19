@@ -73,6 +73,7 @@ export function EnsembleDetails() {
                 resetScroll={true}
                 to="/users/$userId"
                 params={{ userId: ensemble.admin._id }}
+                search={{ page: 1 }}
               >
                 <Button variant="secondary" size="sm">
                   Vis profil

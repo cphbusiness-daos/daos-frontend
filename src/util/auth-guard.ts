@@ -5,7 +5,7 @@ import type { AuthStore } from "~/stores/AuthStore";
 export async function publicRouteGuard({ context }: { context: AuthStore }) {
   console.log(context.session);
   if (context.session) {
-    throw redirect({ to: "/profile" });
+    throw redirect({ to: "/profile", search: { page: 1 } });
   }
 }
 

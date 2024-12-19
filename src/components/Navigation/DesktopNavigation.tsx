@@ -39,7 +39,7 @@ export function DesktopNavigation() {
         </>
       ) : (
         <>
-          <Link resetScroll={true} to="/profile">
+          <Link resetScroll={true} to="/profile" search={{ page: 1 }}>
             <Button variant="primary" size="md">
               Profil
             </Button>

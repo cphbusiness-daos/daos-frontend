@@ -16,7 +16,7 @@ export const Route = createFileRoute("/profile/settings/")({
 function RouteComponent() {
   return (
     <div className="flex flex-col gap-y-6 p-4 pb-16 pt-8">
-      <Link resetScroll={true} to="/profile">
+      <Link resetScroll={true} to="/profile" search={{ page: 1 }}>
         <Button
           type="button"
           variant="secondary"

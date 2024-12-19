@@ -49,7 +49,7 @@ function SignUpPage() {
     onSuccess: async ({ token }) => {
       setSession(token);
       toast.success("Profile created successfully");
-      await navigate({ to: "/profile" });
+      await navigate({ to: "/profile", search: { page: 1 } });
     },
   });
 

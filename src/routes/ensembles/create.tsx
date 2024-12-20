@@ -224,7 +224,9 @@ function CreateEnsemblePage() {
       </div>
 
       <div className="mt-5 flex flex-col gap-y-2">
-        <Button type="submit">Create ensemble</Button>
+        <Button type="submit" disabled={!!createdEnsemble}>
+          Create ensemble
+        </Button>
         {createdEnsemble && (
           <Link resetScroll={true} to={`/ensembles/${createdEnsemble._id}`}>
             <Button variant="secondary" className="w-full" type="button">

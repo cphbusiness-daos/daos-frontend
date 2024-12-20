@@ -6,7 +6,7 @@ import { UserService } from "~/service/auth/user-service";
 import { EnsembleService } from "~/service/ensembles/ensemble-service";
 import { privateRouteGuard } from "~/util/auth-guard";
 
-export const Route = createFileRoute("/users/$userId")({
+export const Route = createFileRoute("/users/$userId/")({
   component: UserProfile,
   beforeLoad: privateRouteGuard,
   validateSearch: (search) => {

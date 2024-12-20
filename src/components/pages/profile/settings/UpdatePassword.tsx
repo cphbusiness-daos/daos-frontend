@@ -36,7 +36,7 @@ export function UpdatePassword() {
 
   return (
     <form
-      className="flex flex-col gap-y-4 p-4"
+      className="flex flex-col gap-y-4 p-4 px-0"
       onSubmit={form.handleSubmit(onsubmit)}
     >
       <Heading variant="h3" className="text-lg">

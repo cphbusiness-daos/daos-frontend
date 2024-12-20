@@ -16,14 +16,14 @@ export function UserEnsembles({
   Route: typeof ProfileRoute | typeof UserProfileRoute;
 }) {
   return (
-    <div className="flex flex-col gap-y-6 border-y border-gray-normal bg-white p-10">
+    <div className="flex flex-col gap-y-6 border-y border-gray-normal bg-white p-8 px-5">
       <div className="flex items-center justify-between">
         <Heading variant="h2" className="text-xl">
-          My ensembles
+          Mine ensembler
         </Heading>
         <Link resetScroll={true} to="/ensembles/create">
           <Button variant="secondary" size="sm">
-            Create
+            Opret
           </Button>
         </Link>
       </div>
@@ -50,7 +50,7 @@ function EnsemblesList({
   }
 
   return (
-    <div className="flex flex-col p-4">
+    <div className="flex flex-col py-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ensembles.map((ensemble) => (
           <EnsembleProfileCard key={ensemble._id} ensemble={ensemble} />
